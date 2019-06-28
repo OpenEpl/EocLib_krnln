@@ -9,8 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SuperTemplateForKrnln")]
-[assembly: AssemblyCopyright("Copyright (C) 2019 QIQI<Email: 1354092549@qq.com>
-"))]
+[assembly: AssemblyCopyright("Copyright (C) 2019 QIQI<Email: 1354092549@qq.com>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

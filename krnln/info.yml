@@ -209,6 +209,13 @@ Cmd:
     - DataType: int32_t
       Optional: true
       ByRef: true
+  取代码:
+    CppName: e::lib::krnln::TextUtils::GetCodePoint
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::string
+    - DataType: intptr_t
+      Optional: true
   字符:
     CppName: e::lib::krnln::TextUtils::Char
     ReturnDataType: e::system::string

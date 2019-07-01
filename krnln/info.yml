@@ -226,6 +226,26 @@ Cmd:
     ReturnDataType: intptr_t
     Parameters:
     - DataType: e::system::string
+  取文本左边:
+    CppName: e::lib::krnln::TextUtils::Left
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+    - DataType: intptr_t
+  取文本右边:
+    CppName: e::lib::krnln::TextUtils::Right
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+    - DataType: intptr_t
+  取文本中间:
+    CppName: e::lib::krnln::TextUtils::SubStr
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+    - DataType: intptr_t
+    - DataType: intptr_t
+
 Type: {}
 Constant:
   标准输出设备:

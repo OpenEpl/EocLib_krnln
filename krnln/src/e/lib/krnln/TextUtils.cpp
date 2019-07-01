@@ -20,3 +20,43 @@ intptr_t e::lib::krnln::TextUtils::Len(const e::system::string &x)
 {
 	return intptr_t(x.len());
 }
+
+e::system::string e::lib::krnln::TextUtils::Left(const e::system::string &x, intptr_t length)
+{
+	if (length <= 0)
+		return nullptr;
+	if (length >= static_cast<intptr_t>(x.len()))
+		return x;
+	auto result = e::system::string(length);
+	std::memcpy(result.data, x.data, length);
+	result.data[length] = '\0';
+	return result;
+}
+
+e::system::string e::lib::krnln::TextUtils::Right(const e::system::string &x, intptr_t length)
+{
+	if (length <= 0)
+		return nullptr;
+	auto rawLength = intptr_t(x.len());
+	if (length >= rawLength)
+		return x;
+	auto result = e::system::string(length);
+	std::memcpy(result.data, &x.data[rawLength - length], length);
+	result.data[length] = '\0';
+	return result;
+}
+
+e::system::string e::lib::krnln::TextUtils::SubStr(const e::system::string &x, intptr_t start, intptr_t length)
+{
+	if (start <= 0 || length <= 0)
+		return nullptr;
+	auto rawLength = intptr_t(x.len());
+	if (start > rawLength)
+		return nullptr;
+	if (start + length - 1 > rawLength)
+		length = rawLength - start + 1;
+	auto result = e::system::string(length);
+	std::memcpy(result.data, &x.data[start - 1], length);
+	result.data[length] = '\0';
+	return result;
+}

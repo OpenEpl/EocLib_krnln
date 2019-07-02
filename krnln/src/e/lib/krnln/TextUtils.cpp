@@ -1,4 +1,6 @@
 #include "TextUtils.h"
+#include <mbstring.h>
+#include <shlwapi.h>
 
 e::system::string e::lib::krnln::TextUtils::Char(uint8_t x)
 {
@@ -59,4 +61,24 @@ e::system::string e::lib::krnln::TextUtils::SubStr(const e::system::string &x, i
 	std::memcpy(result.data, &x.data[start - 1], length);
 	result.data[length] = '\0';
 	return result;
+}
+
+intptr_t e::lib::krnln::TextUtils::IndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex, std::optional<bool> caseInsensitive)
+{
+	auto start_v = startIndex.value_or(1);
+	if (start_v <= 0)
+		start_v = 1;
+	if ((size_t)start_v > str.len())
+		return -1;
+	if (subStr.c_str() == nullptr)
+		return -1;
+	auto pStart = &str.c_str()[start_v - 1];
+	char *pTarget;
+	if (!caseInsensitive.value_or(false))
+		pTarget = (char *)_mbsstr((unsigned char *)pStart, (unsigned char *)subStr.c_str());
+	else
+		pTarget = StrStrIA(pStart, subStr.c_str()); //MBCS-friendly
+	if (pTarget == nullptr)
+		return -1;
+	return (pTarget - pStart) + start_v;
 }

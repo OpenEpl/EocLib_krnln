@@ -34,3 +34,14 @@ TEST_CASE("SubString", "[TextUtils]")
 	CHECK(TextUtils::SubStr(EOC_STR_CONST("asdf"), 1, -1) == nullptr);
 	CHECK(TextUtils::SubStr(EOC_STR_CONST("asdf"), 0, 1) == nullptr);
 }
+
+TEST_CASE("IndexOf", "[TextUtils]")
+{
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("S"), std::nullopt, true) == 2);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), -250) == 2);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 2) == 2);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 3) == 5);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), nullptr) == -1);
+	CHECK(TextUtils::IndexOf(nullptr, EOC_STR_CONST("s")) == -1);
+	CHECK(TextUtils::IndexOf(nullptr, nullptr) == -1);
+}

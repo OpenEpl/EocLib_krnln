@@ -13,7 +13,7 @@ set_property(TARGET EocKrnln PROPERTY CXX_STANDARD_REQUIRED ON)
 
 include(${EOC_LIBS_DIRS}/system/config.cmake)
 target_include_directories(EocKrnln PRIVATE ${EocSystem_INCLUDE_DIRS})
-target_link_libraries(EocKrnln ${EocSystem_LIBRARIES})
+target_link_libraries(EocKrnln Shlwapi.lib ${EocSystem_LIBRARIES})
 
 if(EocKrnln_BUILD_TESTS)
 	enable_testing()

@@ -70,7 +70,7 @@ intptr_t e::lib::krnln::TextUtils::IndexOf(const e::system::string &str, const e
 		start_v = 1;
 	if ((size_t)start_v > str.len())
 		return -1;
-	if (subStr.c_str() == nullptr)
+	if (subStr.isEmpty())
 		return -1;
 	auto pStart = &str.c_str()[start_v - 1];
 	char *pTarget;

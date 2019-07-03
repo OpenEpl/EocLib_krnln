@@ -42,6 +42,7 @@ TEST_CASE("IndexOf", "[TextUtils]")
 	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 2) == 2);
 	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 3) == 5);
 	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), nullptr) == -1);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
 	CHECK(TextUtils::IndexOf(nullptr, EOC_STR_CONST("s")) == -1);
 	CHECK(TextUtils::IndexOf(nullptr, nullptr) == -1);
 }

@@ -65,12 +65,12 @@ e::system::string e::lib::krnln::TextUtils::SubStr(const e::system::string &x, i
 
 intptr_t e::lib::krnln::TextUtils::IndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex, std::optional<bool> caseInsensitive)
 {
+	if (subStr.isEmpty())
+		return -1;
 	auto start_v = startIndex.value_or(1);
 	if (start_v <= 0)
 		start_v = 1;
 	if ((size_t)start_v > str.len())
-		return -1;
-	if (subStr.isEmpty())
 		return -1;
 	auto pStart = &str.c_str()[start_v - 1];
 	char *pTarget;
@@ -81,4 +81,40 @@ intptr_t e::lib::krnln::TextUtils::IndexOf(const e::system::string &str, const e
 	if (pTarget == nullptr)
 		return -1;
 	return (pTarget - pStart) + start_v;
+}
+
+intptr_t e::lib::krnln::TextUtils::LastIndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex, std::optional<bool> caseInsensitive)
+{
+	if (subStr.isEmpty())
+		return -1;
+	auto len = (intptr_t)str.len();
+	auto start_v = startIndex.value_or(len);
+	if (start_v <= 0)
+		return -1;
+	if (start_v > len)
+		start_v = len;
+	auto startPtr = str.c_str();		 //included
+	auto endPtr = str.c_str() + start_v; //not included
+	char *curPtr;
+	if (!caseInsensitive.value_or(false))
+	{
+		curPtr = (char *)_mbsstr((unsigned char *)startPtr, (unsigned char *)subStr.c_str());
+		if (curPtr >= endPtr || curPtr == nullptr)
+			return -1;
+		while (true)
+		{
+			auto nextPtr = (char *)_mbsstr(_mbsinc((unsigned char *)curPtr), (unsigned char *)subStr.c_str());
+			if (nextPtr >= endPtr || nextPtr == nullptr)
+				break;
+			else
+				curPtr = nextPtr;
+		}
+	}
+	else
+	{
+		curPtr = StrRStrIA(startPtr, endPtr, subStr.c_str());
+		if(curPtr == nullptr)
+			return -1;
+	}
+	return curPtr - startPtr + 1;
 }

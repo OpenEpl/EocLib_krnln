@@ -46,3 +46,17 @@ TEST_CASE("IndexOf", "[TextUtils]")
 	CHECK(TextUtils::IndexOf(nullptr, EOC_STR_CONST("s")) == -1);
 	CHECK(TextUtils::IndexOf(nullptr, nullptr) == -1);
 }
+
+
+TEST_CASE("LastIndexOf", "[TextUtils]")
+{
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("S"), std::nullopt, true) == 5);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), -2) == -1);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 555) == 5);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 2) == 2);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("s"), 1) == -1);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), nullptr) == -1);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
+	CHECK(TextUtils::LastIndexOf(nullptr, EOC_STR_CONST("s")) == -1);
+	CHECK(TextUtils::LastIndexOf(nullptr, nullptr) == -1);
+}

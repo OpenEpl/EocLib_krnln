@@ -15,6 +15,7 @@ namespace e
 				e::system::string Right(const e::system::string &x, intptr_t length);
 				e::system::string SubStr(const e::system::string &x, intptr_t start, intptr_t length);
 				intptr_t IndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex = std::nullopt, std::optional<bool> caseInsensitive = std::nullopt);
+				intptr_t LastIndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex = std::nullopt, std::optional<bool> caseInsensitive = std::nullopt);
 			}
 		}
 	}

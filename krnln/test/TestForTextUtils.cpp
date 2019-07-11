@@ -45,6 +45,7 @@ TEST_CASE("IndexOf", "[TextUtils]")
 	CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
 	CHECK(TextUtils::IndexOf(nullptr, EOC_STR_CONST("s")) == -1);
 	CHECK(TextUtils::IndexOf(nullptr, nullptr) == -1);
+	CHECK(TextUtils::IndexOf(EOC_STR_CONST("我爱你不爱我"), EOC_STR_CONST("爱")) == 3);
 }
 
 
@@ -59,4 +60,5 @@ TEST_CASE("LastIndexOf", "[TextUtils]")
 	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
 	CHECK(TextUtils::LastIndexOf(nullptr, EOC_STR_CONST("s")) == -1);
 	CHECK(TextUtils::LastIndexOf(nullptr, nullptr) == -1);
+	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("我爱你不爱我"), EOC_STR_CONST("我")) == 11);
 }

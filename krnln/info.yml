@@ -255,6 +255,16 @@ Cmd:
       Optional: true
     - DataType: bool
       Optional: true
+  倒找文本:
+    CppName: e::lib::krnln::TextUtils::LastIndexOf
+    ReturnDataType: intptr_t
+    Parameters:
+    - DataType: e::system::string
+    - DataType: e::system::string
+    - DataType: intptr_t
+      Optional: true
+    - DataType: bool
+      Optional: true
 Type: {}
 Constant:
   标准输出设备:

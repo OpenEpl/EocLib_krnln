@@ -18,6 +18,7 @@ namespace e
 				intptr_t LastIndexOf(const e::system::string &str, const e::system::string &subStr, std::optional<intptr_t> startIndex = std::nullopt, std::optional<bool> caseInsensitive = std::nullopt);
 				e::system::string ToLower(e::system::string x);
 				e::system::string ToUpper(e::system::string x);
+				e::system::string Space(intptr_t length);
 			}
 		}
 	}

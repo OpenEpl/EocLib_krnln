@@ -76,3 +76,11 @@ TEST_CASE("ToUpper", "[TextUtils]")
 	CHECK(TextUtils::ToUpper("").isEmpty());
 	CHECK(TextUtils::ToUpper("Hello") == "HELLO");
 }
+
+
+TEST_CASE("Space", "[TextUtils]")
+{
+	CHECK(TextUtils::Space(0).isEmpty());
+	CHECK(TextUtils::Space(-1).isEmpty());
+	CHECK(TextUtils::Space(5) == "     ");
+}

@@ -131,3 +131,13 @@ e::system::string e::lib::krnln::TextUtils::ToUpper(e::system::string x)
 	_mbsupr((unsigned char *)x.data);
 	return x;
 }
+
+e::system::string e::lib::krnln::TextUtils::Space(intptr_t length)
+{
+	if(length <= 0)
+		return nullptr;
+	e::system::string result(length);
+	memset(result.data, ' ', length);
+	result.data[length] = '\0';
+	return result;
+}

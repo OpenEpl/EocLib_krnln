@@ -275,6 +275,11 @@ Cmd:
     ReturnDataType: e::system::string
     Parameters:
     - DataType: e::system::string
+  取空白文本:
+    CppName: e::lib::krnln::TextUtils::Space
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: intptr_t
 Type: {}
 Constant:
   标准输出设备:

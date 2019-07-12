@@ -280,6 +280,51 @@ Cmd:
     ReturnDataType: e::system::string
     Parameters:
     - DataType: intptr_t
+  取字节集长度:
+    CppName: e::lib::krnln::BinUtils::Len
+    ReturnDataType: intptr_t
+    Parameters:
+    - DataType: e::system::bin
+  取字节集左边:
+    CppName: e::lib::krnln::BinUtils::Left
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: intptr_t
+  取字节集右边:
+    CppName: e::lib::krnln::BinUtils::Right
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: intptr_t
+  取字节集中间:
+    CppName: e::lib::krnln::BinUtils::SubStr
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: intptr_t
+    - DataType: intptr_t
+  寻找字节集:
+    CppName: e::lib::krnln::BinUtils::IndexOf
+    ReturnDataType: intptr_t
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: e::system::bin
+    - DataType: intptr_t
+      Optional: true
+  倒找字节集:
+    CppName: e::lib::krnln::BinUtils::LastIndexOf
+    ReturnDataType: intptr_t
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: e::system::bin
+    - DataType: intptr_t
+      Optional: true
+  取空白字节集:
+    CppName: e::lib::krnln::BinUtils::Space
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: intptr_t
 Type: {}
 Constant:
   标准输出设备:

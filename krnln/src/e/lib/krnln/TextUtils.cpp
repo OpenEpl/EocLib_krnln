@@ -113,8 +113,21 @@ intptr_t e::lib::krnln::TextUtils::LastIndexOf(const e::system::string &str, con
 	else
 	{
 		curPtr = StrRStrIA(startPtr, endPtr, subStr.c_str());
-		if(curPtr == nullptr)
+		if (curPtr == nullptr)
 			return -1;
 	}
 	return curPtr - startPtr + 1;
+}
+e::system::string e::lib::krnln::TextUtils::ToLower(const e::system::string &x)
+{
+	auto result = x;
+	_mbslwr((unsigned char *)result.data);
+	return result;
+}
+
+e::system::string e::lib::krnln::TextUtils::ToUpper(const e::system::string &x)
+{
+	auto result = x;
+	_mbsupr((unsigned char *)result.data);
+	return result;
 }

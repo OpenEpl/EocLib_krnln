@@ -62,3 +62,17 @@ TEST_CASE("LastIndexOf", "[TextUtils]")
 	CHECK(TextUtils::LastIndexOf(nullptr, nullptr) == -1);
 	CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("我爱你不爱我"), EOC_STR_CONST("我")) == 11);
 }
+
+TEST_CASE("ToLower", "[TextUtils]")
+{
+	CHECK(TextUtils::ToLower(nullptr).isEmpty());
+	CHECK(TextUtils::ToLower("").isEmpty());
+	CHECK(TextUtils::ToLower("hELLO") == "hello");
+}
+
+TEST_CASE("ToUpper", "[TextUtils]")
+{
+	CHECK(TextUtils::ToUpper(nullptr).isEmpty());
+	CHECK(TextUtils::ToUpper("").isEmpty());
+	CHECK(TextUtils::ToUpper("Hello") == "HELLO");
+}

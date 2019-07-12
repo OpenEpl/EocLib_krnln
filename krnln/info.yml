@@ -265,6 +265,16 @@ Cmd:
       Optional: true
     - DataType: bool
       Optional: true
+  到小写:
+    CppName: e::lib::krnln::TextUtils::ToLower
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+  到大写:
+    CppName: e::lib::krnln::TextUtils::ToUpper
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
 Type: {}
 Constant:
   标准输出设备:

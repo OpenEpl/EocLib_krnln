@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "TextUtils.h"
 #include <mbstring.h>
 #include <shlwapi.h>
@@ -118,16 +120,14 @@ intptr_t e::lib::krnln::TextUtils::LastIndexOf(const e::system::string &str, con
 	}
 	return curPtr - startPtr + 1;
 }
-e::system::string e::lib::krnln::TextUtils::ToLower(const e::system::string &x)
+e::system::string e::lib::krnln::TextUtils::ToLower(e::system::string x)
 {
-	auto result = x;
-	_mbslwr((unsigned char *)result.data);
-	return result;
+	_mbslwr((unsigned char *)x.data);
+	return x;
 }
 
-e::system::string e::lib::krnln::TextUtils::ToUpper(const e::system::string &x)
+e::system::string e::lib::krnln::TextUtils::ToUpper(e::system::string x)
 {
-	auto result = x;
-	_mbsupr((unsigned char *)result.data);
-	return result;
+	_mbsupr((unsigned char *)x.data);
+	return x;
 }

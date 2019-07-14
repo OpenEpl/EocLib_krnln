@@ -13,6 +13,9 @@ namespace e
 				const int32_t ConvertTime(3);
 				e::system::string DateTimeToString(e::system::datetime value, std::optional<int> mode = ConvertDateTime);
 				e::system::datetime Now();
+				e::system::datetime GetTimePart(e::system::datetime x);
+				e::system::datetime GetDatePart(e::system::datetime x);
+				e::system::datetime BuildDateTime(int32_t year, std::optional<int32_t> month = 1, std::optional<int32_t> day = 1, std::optional<int32_t> hour = 0, std::optional<int32_t> minute = 0, std::optional<int32_t> second = 0);
 			}
 		}
 	}

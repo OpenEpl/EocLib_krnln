@@ -164,6 +164,31 @@ Cmd:
     - DataType: e::system::datetime
     - DataType: int32_t
       Optional: true
+  指定时间:
+    CppName: e::lib::krnln::DateTimeUtils::BuildDateTime
+    ReturnDataType: e::system::datetime
+    Parameters:
+    - DataType: int32_t
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
+  取日期:
+    CppName: e::lib::krnln::DateTimeUtils::GetDatePart
+    ReturnDataType: e::system::datetime
+    Parameters:
+    - DataType: e::system::datetime
+  取时间:
+    CppName: e::lib::krnln::DateTimeUtils::GetTimePart
+    ReturnDataType: e::system::datetime
+    Parameters:
+    - DataType: e::system::datetime
   取现行时间:
     CppName: e::lib::krnln::DateTimeUtils::Now
     ReturnDataType: e::system::datetime

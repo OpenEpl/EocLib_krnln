@@ -7,6 +7,7 @@
 #include "DateTimeUtils.h"
 #include "ArrayUtils.h"
 #include "TextUtils.h"
+#include "BinUtils.h"
 
 namespace e
 {

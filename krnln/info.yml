@@ -350,6 +350,32 @@ Cmd:
     ReturnDataType: e::system::bin
     Parameters:
     - DataType: intptr_t
+  指针到整数:
+    CppName: e::lib::krnln::BinUtils::ReadInt32
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: intptr_t
+  指针到小数:
+    CppName: e::lib::krnln::BinUtils::ReadFloat
+    ReturnDataType: float
+    Parameters:
+    - DataType: intptr_t
+  指针到双精度小数:
+    CppName: e::lib::krnln::BinUtils::ReadDouble
+    ReturnDataType: double
+    Parameters:
+    - DataType: intptr_t
+  指针到文本:
+    CppName: e::lib::krnln::BinUtils::ReadText
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: intptr_t
+  指针到字节集:
+    CppName: e::lib::krnln::BinUtils::ReadToBin
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: intptr_t
+    - DataType: intptr_t
 Type: {}
 Constant:
   标准输出设备:

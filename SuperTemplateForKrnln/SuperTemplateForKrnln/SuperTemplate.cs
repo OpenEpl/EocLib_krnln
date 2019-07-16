@@ -8,36 +8,36 @@ namespace e.lib.krnln
 {
     public class SuperTemplate
     {
-        public static void ReturnCmd(CodeConverter C, EocCallExpression expr)
+        public static void ReturnCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
             if (expr.ParamList.Count == 1)
             {
-                C.Writer.Write("return ");
-                expr.ParamList[0].WriteTo();
+                writer.Write("return ");
+                expr.ParamList[0].WriteTo(writer);
             }
             else
             {
-                C.Writer.Write("return");
+                writer.Write("return");
             }
         }
 
-        public static void BreakCmd(CodeConverter C, EocCallExpression expr)
+        public static void BreakCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            C.Writer.Write("break");
+            writer.Write("break");
         }
 
-        public static void ContinueCmd(CodeConverter C, EocCallExpression expr)
+        public static void ContinueCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            C.Writer.Write("continue");
+            writer.Write("continue");
         }
 
-        public static void LetCmd(CodeConverter C, EocCallExpression callExpr)
+        public static void LetCmd(CodeConverter C, CodeWriter writer, EocCallExpression callExpr)
         {
             var target = callExpr.ParamList[0];
-            C.WriteLetExpression(target, () => callExpr.ParamList[1].WriteToWithCast(target.GetResultType()));
+            C.WriteLetExpression(writer, target, () => callExpr.ParamList[1].WriteToWithCast(writer, target.GetResultType()));
         }
 
-        public static void LetMutilCmd(CodeConverter C, EocCallExpression callExpr)
+        public static void LetMutilCmd(CodeConverter C, CodeWriter writer, EocCallExpression callExpr)
         {
             var source = callExpr.ParamList[0];
             for (int i = 1; i < callExpr.ParamList.Count; i++)
@@ -45,18 +45,18 @@ namespace e.lib.krnln
                 var cur = callExpr.ParamList[i];
                 source = new EocCallExpression(C, C.P.GetEocCmdInfo(0, 54), null, new List<EocExpression> { cur, source }, C.P.EocLibs[0].SuperTemplateAssembly);
             }
-            source.WriteTo();
+            source.WriteTo(writer);
         }
 
-        public static void IsNullParameterCmd(CodeConverter C, EocCallExpression expr)
+        public static void IsNullParameterCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
             if (expr.ParamList[0] is EocVariableExpression x
                 && x.VariableInfo is MethodParameterInfo paramInfo
                 && paramInfo.OptionalParameter)
             {
                 var name = C.P.GetUserDefinedName_SimpleCppName(x.VariableInfo.Id);
-                C.Writer.Write("eoc_isNull_");
-                C.Writer.Write(name);
+                writer.Write("eoc_isNull_");
+                writer.Write(name);
             }
             else
             {
@@ -64,52 +64,52 @@ namespace e.lib.krnln
             }
         }
 
-        public static void AddCmd(CodeConverter C, EocCallExpression expr)
+        public static void AddCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "+", "e::lib::krnln::Add");
+            OperationCmd(C, writer, expr, "+", "e::lib::krnln::Add");
         }
 
-        public static void SubCmd(CodeConverter C, EocCallExpression expr)
+        public static void SubCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "-", "e::lib::krnln::Sub");
+            OperationCmd(C, writer, expr, "-", "e::lib::krnln::Sub");
         }
 
-        public static void MulCmd(CodeConverter C, EocCallExpression expr)
+        public static void MulCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "*", "e::lib::krnln::Mul");
+            OperationCmd(C, writer, expr, "*", "e::lib::krnln::Mul");
         }
 
-        public static void EqualCmd(CodeConverter C, EocCallExpression expr)
+        public static void EqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "==", "e::lib::krnln::Equal");
+            OperationCmd(C, writer, expr, "==", "e::lib::krnln::Equal");
         }
 
-        public static void UnequalCmd(CodeConverter C, EocCallExpression expr)
+        public static void UnequalCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "!=", "e::lib::krnln::Unequal");
+            OperationCmd(C, writer, expr, "!=", "e::lib::krnln::Unequal");
         }
 
-        public static void LessThanCmd(CodeConverter C, EocCallExpression expr)
+        public static void LessThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "<", "e::lib::krnln::LessThan");
+            OperationCmd(C, writer, expr, "<", "e::lib::krnln::LessThan");
         }
 
-        public static void GreaterThanCmd(CodeConverter C, EocCallExpression expr)
+        public static void GreaterThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, ">", "e::lib::krnln::GreaterThan");
+            OperationCmd(C, writer, expr, ">", "e::lib::krnln::GreaterThan");
         }
 
-        public static void LessThanOrEqualCmd(CodeConverter C, EocCallExpression expr)
+        public static void LessThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, "<=", "e::lib::krnln::LessThanOrEqual");
+            OperationCmd(C, writer, expr, "<=", "e::lib::krnln::LessThanOrEqual");
         }
 
-        public static void GreaterThanOrEqualCmd(CodeConverter C, EocCallExpression expr)
+        public static void GreaterThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, expr, ">=", "e::lib::krnln::GreaterThanOrEqual");
+            OperationCmd(C, writer, expr, ">=", "e::lib::krnln::GreaterThanOrEqual");
         }
 
-        public static void OperationCmd(CodeConverter C, EocCallExpression expr, string operation, string cmdForAny)
+        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny)
         {
             var resultType = GetOperatingType(C, expr);
             var expectedItemType = resultType;
@@ -118,17 +118,17 @@ namespace e.lib.krnln
             {
                 expectedItemType = ProjectConverter.CppTypeName_SkipCheck;
                 itemSeparator = ", ";
-                C.Writer.Write(cmdForAny);
+                writer.Write(cmdForAny);
             }
-            C.Writer.Write("(");
+            writer.Write("(");
             for (int i = 0; i < expr.ParamList.Count; i++)
             {
                 var item = expr.ParamList[i];
                 if (i != 0)
-                    C.Writer.Write(itemSeparator);
-                item.WriteToWithCast(expectedItemType);
+                    writer.Write(itemSeparator);
+                item.WriteToWithCast(writer, expectedItemType);
             }
-            C.Writer.Write(")");
+            writer.Write(")");
         }
 
         public static CppTypeName GetOperatingTypeForDiv(CodeConverter C, EocCallExpression expr)

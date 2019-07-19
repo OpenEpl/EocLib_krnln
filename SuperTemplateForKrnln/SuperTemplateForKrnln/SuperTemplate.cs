@@ -10,7 +10,7 @@ namespace e.lib.krnln
     {
         public static void ReturnCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            if (expr.ParamList.Count == 1)
+            if (expr.ParamList.Count == 1 && expr.ParamList[0] != null)
             {
                 writer.Write("return ");
                 expr.ParamList[0].WriteTo(writer);

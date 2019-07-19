@@ -376,6 +376,16 @@ Cmd:
     Parameters:
     - DataType: intptr_t
     - DataType: intptr_t
+  是否为调试版:
+    CppName: e::lib::krnln::DebugUtils::IsDebugMode
+    ReturnDataType: bool
+    Parameters: []
+  输出调试文本:
+    CppName: EOC_OUTPUT_DEBUG_INFO
+    Parameters:
+    - DataType: "*"
+      VarArgs: true
+      Optional: true
 Type: {}
 Constant:
   标准输出设备:

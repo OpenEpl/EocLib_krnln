@@ -8,6 +8,8 @@
 #include "ArrayUtils.h"
 #include "TextUtils.h"
 #include "BinUtils.h"
+#include "MemoryUtils.h"
+#include "DebugUtils.h"
 
 namespace e
 {

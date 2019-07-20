@@ -408,6 +408,18 @@ Cmd:
     - DataType: "*"
       VarArgs: true
       Optional: true
+  置随机数种子:
+    CppName: e::lib::krnln::RandomUtils::SetSeed
+    Parameters:
+    - DataType: int32_t
+      Optional: true
+  取随机数:
+    CppName: e::lib::krnln::RandomUtils::NextInt32
+    Parameters:
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
 Type: {}
 Constant:
   标准输出设备:

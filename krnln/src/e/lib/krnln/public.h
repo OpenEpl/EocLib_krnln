@@ -9,6 +9,7 @@
 #include "TextUtils.h"
 #include "BinUtils.h"
 #include "MemoryUtils.h"
+#include "RandomUtils.h"
 #include "DebugUtils.h"
 
 namespace e

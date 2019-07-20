@@ -109,12 +109,50 @@ namespace e.lib.krnln
             OperationCmd(C, writer, expr, ">=", "e::lib::krnln::GreaterThanOrEqual");
         }
 
-        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny)
+        public static void AndAlsoCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            var resultType = GetOperatingType(C, expr);
+            OperationCmd(C, writer, expr, "&&");
+        }
+
+        public static void OrElseCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        {
+            OperationCmd(C, writer, expr, "||");
+        }
+
+        public static void NotCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        {
+            UnaryOperationCmd(C, writer, expr, "!");
+        }
+
+        public static void NegCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        {
+            UnaryOperationCmd(C, writer, expr, "-", "e::lib::krnln::Neg");
+        }
+
+        public static void UnaryOperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny = null)
+        {
+            if (expr.ParamList.Count != 1)
+                throw new ArgumentException();
+            var resultType = expr.GetResultType();
+            var expectedItemType = resultType;
+            if (cmdForAny != null && resultType == ProjectConverter.CppTypeName_Any || resultType == ProjectConverter.CppTypeName_SkipCheck)
+            {
+                expectedItemType = ProjectConverter.CppTypeName_SkipCheck;
+                operation = "";
+                writer.Write(cmdForAny);
+            }
+            writer.Write("(");
+            writer.Write(operation);
+            expr.ParamList[0].WriteToWithCast(writer, expectedItemType);
+            writer.Write(")");
+        }
+
+        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny = null)
+        {
+            var resultType = expr.GetResultType();
             var expectedItemType = resultType;
             var itemSeparator = $" {operation} ";
-            if (resultType == ProjectConverter.CppTypeName_Any || resultType == ProjectConverter.CppTypeName_SkipCheck)
+            if (cmdForAny != null && resultType == ProjectConverter.CppTypeName_Any || resultType == ProjectConverter.CppTypeName_SkipCheck)
             {
                 expectedItemType = ProjectConverter.CppTypeName_SkipCheck;
                 itemSeparator = ", ";

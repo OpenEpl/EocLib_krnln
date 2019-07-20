@@ -207,6 +207,41 @@ namespace e
 			DefineMulitOperandOperator(Mod);
 			DefineMulitOperandOperator(IDiv);
 			DefineMulitOperandOperator(Div);
+
+			template<class T,
+				std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+				static T Neg(T value)
+			{
+				return -value;
+			}
+
+			static e::system::any Neg(const e::system::any &value)
+			{
+				if (value.type() == typeid(uint8_t))
+				{
+					return Neg(value.cast<uint8_t>());
+				}
+				if (value.type() == typeid(int16_t))
+				{
+					return Neg(value.cast<int16_t>());
+				}
+				if (value.type() == typeid(int32_t))
+				{
+					return Neg(value.cast<int32_t>());
+				}
+				if (value.type() == typeid(int64_t))
+				{
+					return Neg(value.cast<int64_t>());
+				}
+				if (value.type() == typeid(double))
+				{
+					return Neg(value.cast<double>());
+				}
+				if (value.type() == typeid(float))
+				{
+					return Neg(value.cast<float>());
+				}
+			}
 		}
 	}
 }

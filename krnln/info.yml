@@ -97,6 +97,28 @@ Cmd:
     Parameters:
     - DataType: "*"
       VarArgs: true
+  负:
+    SuperTemplateForReturnDataType:
+      Class: e.lib.krnln.SuperTemplate
+      Name: GetOperatingType
+    SuperTemplate:
+      Class: e.lib.krnln.SuperTemplate
+      Name: NegCmd
+  并且:
+    ReturnDataType: bool
+    SuperTemplate:
+      Class: e.lib.krnln.SuperTemplate
+      Name: AndAlsoCmd
+  或者:
+    ReturnDataType: bool
+    SuperTemplate:
+      Class: e.lib.krnln.SuperTemplate
+      Name: OrElseCmd
+  取反:
+    ReturnDataType: bool
+    SuperTemplate:
+      Class: e.lib.krnln.SuperTemplate
+      Name: NotCmd
   是否为空:
     ReturnDataType: bool
     SuperTemplate:

@@ -327,6 +327,46 @@ Cmd:
     ReturnDataType: e::system::string
     Parameters:
     - DataType: intptr_t
+  取重复文本:
+    CppName: e::lib::krnln::TextUtils::Repeat
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: intptr_t
+    - DataType: e::system::string
+  文本替换:
+    CppName: e::lib::krnln::TextUtils::Replace
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+    - DataType: intptr_t
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+    - DataType: e::system::string
+      Optional: true
+  分割文本:
+    CppName: e::lib::krnln::TextUtils::Split
+    ReturnDataType: e::system::array<e::system::string>
+    Parameters:
+    - DataType: e::system::string
+    - DataType: e::system::string
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+  子文本替换:
+    CppName: e::lib::krnln::TextUtils::ReplaceSubText
+    ReturnDataType: e::system::string
+    Parameters:
+    - DataType: e::system::string
+    - DataType: e::system::string
+    - DataType: e::system::string
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+    - DataType: bool
+      Optional: true
   取字节集长度:
     CppName: e::lib::krnln::BinUtils::Len
     ReturnDataType: intptr_t
@@ -372,6 +412,44 @@ Cmd:
     ReturnDataType: e::system::bin
     Parameters:
     - DataType: intptr_t
+  取重复字节集:
+    CppName: e::lib::krnln::BinUtils::Repeat
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: intptr_t
+    - DataType: e::system::bin
+  字节集替换:
+    CppName: e::lib::krnln::BinUtils::Replace
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: intptr_t
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+    - DataType: e::system::bin
+      Optional: true
+  分割字节集:
+    CppName: e::lib::krnln::BinUtils::Split
+    ReturnDataType: e::system::array<e::system::bin>
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: e::system::bin
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+  子字节集替换:
+    CppName: e::lib::krnln::BinUtils::ReplaceSubBin
+    ReturnDataType: e::system::bin
+    Parameters:
+    - DataType: e::system::bin
+    - DataType: e::system::bin
+    - DataType: e::system::bin
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
   指针到整数:
     CppName: e::lib::krnln::BinUtils::ReadInt32
     ReturnDataType: int32_t
@@ -415,6 +493,7 @@ Cmd:
       Optional: true
   取随机数:
     CppName: e::lib::krnln::RandomUtils::NextInt32
+    ReturnDataType: int32_t
     Parameters:
     - DataType: int32_t
       Optional: true

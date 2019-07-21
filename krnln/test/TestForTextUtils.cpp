@@ -81,3 +81,44 @@ TEST_CASE("TextUtils::Space", "[TextUtils]")
     CHECK(TextUtils::Space(-1).isEmpty());
     CHECK(TextUtils::Space(5) == "     ");
 }
+
+TEST_CASE("TextUtils::Repeat", "[TextUtils]")
+{
+    CHECK(TextUtils::Repeat(10, "a") == "aaaaaaaaaa");
+}
+
+TEST_CASE("TextUtils::Replace", "[TextUtils]")
+{
+    CHECK(TextUtils::Replace("123456", 2, 3, "as") == "1as56");
+    CHECK(TextUtils::Replace("123456", -2, 3, "as") == "as456");
+    CHECK(TextUtils::Replace("123456", 9, 3, "as") == "123456as");
+    CHECK(TextUtils::Replace("123456", 2, 0, "as") == "1as23456");
+    CHECK(TextUtils::Replace("123456", 2, 2, std::nullopt) == "1456");
+}
+
+TEST_CASE("TextUtils::Split", "[TextUtils]")
+{
+    CHECK(TextUtils::Split("1,2,3,4,5,6", std::nullopt) == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6"});
+    CHECK(TextUtils::Split("1,2,3,4,5,6,", std::nullopt) == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6"});
+    CHECK(TextUtils::Split("1,2,3,4,5,6,,", std::nullopt) == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6", ""});
+    CHECK(TextUtils::Split("123456", "") == e::system::array<e::system::string>{"123456"});
+    CHECK(TextUtils::Split("", "") == e::system::array<e::system::string>{});
+    CHECK(TextUtils::Split("", "asd") == e::system::array<e::system::string>{});
+    CHECK(TextUtils::Split("1,2,3,4,5,6", std::nullopt, 8) == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6"});
+    CHECK(TextUtils::Split("1,2,3,4,5,6", std::nullopt, 2) == e::system::array<e::system::string>{"1", "2"});
+    CHECK(TextUtils::Split("1,2,3,4,5,6", std::nullopt, -1) == e::system::array<e::system::string>{});
+    CHECK(TextUtils::Split("1$%^2$%^3$%^4$%^5$%^6$%^", "$%^") == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6"});
+    CHECK(TextUtils::Split("1$%^2$%^3$%^4$%^5$%^6$%^", "$%^") == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6"});
+    CHECK(TextUtils::Split("1$%^2$%^3$%^4$%^5$%^6$%^$%^", "$%^") == e::system::array<e::system::string>{"1", "2", "3", "4", "5", "6", ""});
+}
+
+TEST_CASE("TextUtils::ReplaceSubText", "[TextUtils]")
+{
+    CHECK(TextUtils::ReplaceSubText("1,2,3,4,5,6,", ",") == "123456");
+    CHECK(TextUtils::ReplaceSubText("1,2,3,4,5,6", ",", "^^") == "1^^2^^3^^4^^5^^6");
+    CHECK(TextUtils::ReplaceSubText("1,2,3,4,5,6", ",", "^^", 3) == "1,2^^3^^4^^5^^6");
+    CHECK(TextUtils::ReplaceSubText("1a2a3a4a5a6", "A", "", 1, std::nullopt, std::nullopt) == "1a2a3a4a5a6");
+    CHECK(TextUtils::ReplaceSubText("1a2a3a4a5a6", "A", "", 1, std::nullopt, true) == "1a2a3a4a5a6");
+    CHECK(TextUtils::ReplaceSubText("1a2a3a4a5a6", "a", "", 1, std::nullopt, true) == "123456");
+    CHECK(TextUtils::ReplaceSubText("1a2a3a4a5a6", "A", "", 1, std::nullopt, false) == "123456");
+}

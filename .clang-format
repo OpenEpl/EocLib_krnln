@@ -10,3 +10,4 @@ NamespaceIndentation: All
 FixNamespaceComments: false
 SortIncludes: false
 AccessModifierOffset: -4
+AlignAfterOpenBracket: DontAlign

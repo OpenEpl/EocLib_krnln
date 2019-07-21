@@ -151,6 +151,7 @@ namespace e
 			e::system::string ToString(bool value);
 			e::system::string ToString(e::system::datetime value);
 			e::system::string ToString(uint8_t value);
+			e::system::string ToString(const e::system::bin &value);
 			inline e::system::string ToString(const e::system::string &value)
 			{
 				return value;

@@ -122,16 +122,18 @@ intptr_t e::lib::krnln::TextUtils::LastIndexOf(const e::system::string &str, con
     }
     return curPtr - startPtr + 1;
 }
-e::system::string e::lib::krnln::TextUtils::ToLower(e::system::string x)
+e::system::string e::lib::krnln::TextUtils::ToLower(const e::system::string &x)
 {
-    _mbslwr((unsigned char *)x.data);
-    return x;
+    e::system::string result(x.c_str());
+    _mbslwr((unsigned char *)result.data);
+    return result;
 }
 
-e::system::string e::lib::krnln::TextUtils::ToUpper(e::system::string x)
+e::system::string e::lib::krnln::TextUtils::ToUpper(const e::system::string &x)
 {
-    _mbsupr((unsigned char *)x.data);
-    return x;
+    e::system::string result(x.c_str());
+    _mbsupr((unsigned char *)result.data);
+    return result;
 }
 
 e::system::string e::lib::krnln::TextUtils::Space(intptr_t length)

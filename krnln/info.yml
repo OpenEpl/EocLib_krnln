@@ -499,6 +499,10 @@ Cmd:
       Optional: true
     - DataType: int32_t
       Optional: true
+  置入代码:
+    SuperTemplate:
+      Class: e.lib.krnln.SuperTemplate
+      Name: ShellCodeCmd
 Type: {}
 Constant:
   标准输出设备:

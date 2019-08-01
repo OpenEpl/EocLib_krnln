@@ -2,6 +2,8 @@
 using QIQI.EplOnCpp.Core.Expressions;
 using QIQI.EProjectFile;
 using System;
+using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace e.lib.krnln
@@ -46,6 +48,37 @@ namespace e.lib.krnln
                 source = new EocCallExpression(C, C.P.GetEocCmdInfo(0, 54), null, new List<EocExpression> { cur, source }, C.P.EocLibs[0].SuperTemplateAssembly);
             }
             source.WriteTo(writer);
+        }
+
+        public static void ShellCodeCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        {
+            if (expr.ParamList.Count != 1)
+            {
+                throw new Exception("置入代码 必须提供 字节集/文本型常量");
+            }
+            byte[] shellCode;
+            object value;
+            if (expr.ParamList[0].TryGetConstValueWithCast(ProjectConverter.CppTypeName_Bin, out value))
+            {
+                shellCode = ((object[])value).Cast<byte>().ToArray();
+            }
+            else if (expr.ParamList[0].TryGetConstValueWithCast(ProjectConverter.CppTypeName_String, out value))
+            {
+                shellCode = File.ReadAllBytes((string)value);
+            }
+            else
+            {
+                throw new Exception("置入代码 必须提供 字节集/文本型常量");
+            }
+            writer.Write("__asm");
+            using (writer.NewBlock())
+            {
+                foreach (var codeByte in shellCode)
+                {
+                    writer.NewLine();
+                    writer.Write($"_emit {codeByte}");
+                }
+            }
         }
 
         public static void IsNullParameterCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)

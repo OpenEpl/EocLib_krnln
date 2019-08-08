@@ -3,7 +3,6 @@
 #include <e/system/func.h>
 #include <iostream>
 #include "Converter.h"
-#include "Operator/Operator.h"
 #include "DateTimeUtils.h"
 #include "ArrayUtils.h"
 #include "TextUtils.h"

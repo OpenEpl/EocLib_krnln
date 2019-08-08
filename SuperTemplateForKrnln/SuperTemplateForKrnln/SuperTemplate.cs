@@ -97,100 +97,63 @@ namespace e.lib.krnln
             }
         }
 
-        public static void AddCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        public static void AddCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "+");
+        public static void SubCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "-");
+        public static void MulCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "*");
+        public static void EqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "==");
+        public static void UnequalCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "!=");
+        public static void LessThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<");
+        public static void GreaterThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">");
+        public static void LessThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<=");
+        public static void GreaterThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">=");
+        public static void AndAlsoCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "&&");
+        public static void OrElseCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "||");
+        public static void NotCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => UnaryOperationCmd(C, writer, expr, "!");
+        public static void BitAndCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "&");
+        public static void BitOrCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "|");
+        public static void BitXorCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "^");
+        public static void BitNotCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => UnaryOperationCmd(C, writer, expr, "~");
+        public static void NegCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => UnaryOperationCmd(C, writer, expr, "-");
+
+        public static void BitShiftLeftCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, writer, expr, "+", "e::lib::krnln::Add");
+            if (expr.ParamList.Count != 2)
+                throw new ArgumentException();
+            writer.Write("(");
+            expr.ParamList[0].WriteTo(writer);
+            writer.Write(" << ");
+            expr.ParamList[1].WriteToWithCast(writer, ProjectConverter.CppTypeName_Int);
+            writer.Write(")");
         }
 
-        public static void SubCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
+        public static void BitShiftRightCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
-            OperationCmd(C, writer, expr, "-", "e::lib::krnln::Sub");
+            if (expr.ParamList.Count != 2)
+                throw new ArgumentException();
+            writer.Write("(");
+            expr.ParamList[0].WriteTo(writer);
+            writer.Write(" >> ");
+            expr.ParamList[1].WriteToWithCast(writer, ProjectConverter.CppTypeName_Int);
+            writer.Write(")");
         }
 
-        public static void MulCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "*", "e::lib::krnln::Mul");
-        }
-
-        public static void EqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "==", "e::lib::krnln::Equal");
-        }
-
-        public static void UnequalCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "!=", "e::lib::krnln::Unequal");
-        }
-
-        public static void LessThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "<", "e::lib::krnln::LessThan");
-        }
-
-        public static void GreaterThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, ">", "e::lib::krnln::GreaterThan");
-        }
-
-        public static void LessThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "<=", "e::lib::krnln::LessThanOrEqual");
-        }
-
-        public static void GreaterThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, ">=", "e::lib::krnln::GreaterThanOrEqual");
-        }
-
-        public static void AndAlsoCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "&&");
-        }
-
-        public static void OrElseCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            OperationCmd(C, writer, expr, "||");
-        }
-
-        public static void NotCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            UnaryOperationCmd(C, writer, expr, "!");
-        }
-
-        public static void NegCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
-        {
-            UnaryOperationCmd(C, writer, expr, "-", "e::lib::krnln::Neg");
-        }
-
-        public static void UnaryOperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny = null)
+        public static void UnaryOperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation)
         {
             if (expr.ParamList.Count != 1)
                 throw new ArgumentException();
             var resultType = expr.GetResultType();
             var expectedItemType = resultType;
-            if (cmdForAny != null && resultType == ProjectConverter.CppTypeName_Any || resultType == ProjectConverter.CppTypeName_SkipCheck)
-            {
-                expectedItemType = ProjectConverter.CppTypeName_SkipCheck;
-                operation = "";
-                writer.Write(cmdForAny);
-            }
             writer.Write("(");
             writer.Write(operation);
             expr.ParamList[0].WriteToWithCast(writer, expectedItemType);
             writer.Write(")");
         }
 
-        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, string cmdForAny = null)
+        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation)
         {
             var resultType = expr.GetResultType();
             var expectedItemType = resultType;
             var itemSeparator = $" {operation} ";
-            if (cmdForAny != null && resultType == ProjectConverter.CppTypeName_Any || resultType == ProjectConverter.CppTypeName_SkipCheck)
-            {
-                expectedItemType = ProjectConverter.CppTypeName_SkipCheck;
-                itemSeparator = ", ";
-                writer.Write(cmdForAny);
-            }
             writer.Write("(");
             for (int i = 0; i < expr.ParamList.Count; i++)
             {
@@ -212,18 +175,21 @@ namespace e.lib.krnln
             return r;
         }
 
-        public static CppTypeName GetOperatingType(CodeConverter C, EocCallExpression expr)
+        public static CppTypeName GetOperatingTypeForBitShift(CodeConverter C, EocCallExpression expr)
         {
-            if (expr.ParamList.Count == 0)
-            {
-                return ProjectConverter.CppTypeName_SkipCheck;
-            }
+            return expr.ParamList[0].GetResultType();
+        }
+
+        public static CppTypeName DetectCompatibleType(CodeConverter C, IEnumerable<EocExpression> expr)
+        {
+            //假定IntPtr仅可等价于Int32或Int64
             var P = C.P;
-            var resultType = expr.ParamList[0].GetResultType();
-            for (int i = 0; i < expr.ParamList.Count; i++)
+            CppTypeName resultType = null;
+            foreach (var item in expr)
             {
-                var item = expr.ParamList[i];
                 var itemType = item.GetResultType();
+                if (resultType == null)
+                    resultType = itemType;
                 if (itemType == ProjectConverter.CppTypeName_String
                     || itemType == ProjectConverter.CppTypeName_DateTime
                     || itemType == ProjectConverter.CppTypeName_Bin
@@ -234,41 +200,46 @@ namespace e.lib.krnln
                 }
                 if (itemType == ProjectConverter.CppTypeName_Any || itemType == ProjectConverter.CppTypeName_SkipCheck)
                 {
-                    resultType = itemType;
+                    if (resultType != ProjectConverter.CppTypeName_Any)
+                        resultType = itemType;
                 }
                 else if (itemType == ProjectConverter.CppTypeName_IntPtr)
                 {
-                    resultType = ProjectConverter.CppTypeName_SkipCheck;
-                }
-                else
-                {
-                    if (P.IsIntNumberType(itemType))
+                    if (P.IsIntNumberType(resultType))
                     {
-                        if (P.IsIntNumberType(resultType))
-                        {
-                            if (P.GetIntNumberTypeSize(resultType) < P.GetIntNumberTypeSize(itemType))
-                            {
-                                resultType = itemType;
-                            }
-                        }
+                        if (P.GetIntNumberTypeSize(resultType) <= P.GetIntNumberTypeSize(ProjectConverter.CppTypeName_Int))
+                            resultType = ProjectConverter.CppTypeName_IntPtr;
+                        else
+                            resultType = ProjectConverter.CppTypeName_Long;
                     }
-                    else if (P.IsFloatNumberType(itemType))
+                }
+                else if (P.IsIntNumberType(itemType))
+                {
+                    if (resultType == ProjectConverter.CppTypeName_IntPtr)
                     {
-                        if (P.IsIntNumberType(resultType))
-                        {
+                        if (P.GetIntNumberTypeSize(itemType) > P.GetIntNumberTypeSize(ProjectConverter.CppTypeName_Int))
+                            resultType = ProjectConverter.CppTypeName_Long;
+                    }
+                    else if (P.IsIntNumberType(resultType))
+                    {
+                        if (P.GetIntNumberTypeSize(resultType) < P.GetIntNumberTypeSize(itemType))
                             resultType = itemType;
-                        }
-                        else if (P.IsFloatNumberType(resultType))
-                        {
-                            if (P.GetFloatNumberTypeSize(resultType) < P.GetFloatNumberTypeSize(itemType))
-                            {
-                                resultType = itemType;
-                            }
-                        }
+                    }
+                }
+                else if (P.IsFloatNumberType(itemType))
+                {
+                    if (P.IsIntNumberType(resultType) || resultType == ProjectConverter.CppTypeName_IntPtr)
+                        resultType = itemType;
+                    else if (P.IsFloatNumberType(resultType))
+                    {
+                        if (P.GetFloatNumberTypeSize(resultType) < P.GetFloatNumberTypeSize(itemType))
+                            resultType = itemType;
                     }
                 }
             }
             return resultType;
         }
+
+        public static CppTypeName GetOperatingType(CodeConverter C, EocCallExpression expr) => DetectCompatibleType(C, expr.ParamList);
     }
 }

@@ -257,6 +257,14 @@ Cmd:
     CppName: e::lib::krnln::DateTimeUtils::Now
     ReturnDataType: e::system::datetime
     Parameters: []
+  取启动时间:
+    CppName: e::lib::krnln::DateTimeUtils::Tick
+    ReturnDataType: int32_t
+    Parameters: []
+  延时:
+    CppName: e::lib::krnln::ThreadUtils::SleepFor
+    Parameters:
+    - DataType: int32_t
   重定义数组:
     CppName: e::lib::krnln::ArrayUtils::Redim
     Parameters:

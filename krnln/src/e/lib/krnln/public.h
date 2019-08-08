@@ -10,6 +10,7 @@
 #include "MemoryUtils.h"
 #include "RandomUtils.h"
 #include "DebugUtils.h"
+#include "ThreadUtils.h"
 
 namespace e
 {

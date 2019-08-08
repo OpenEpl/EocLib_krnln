@@ -100,12 +100,12 @@ namespace e.lib.krnln
         public static void AddCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "+");
         public static void SubCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "-");
         public static void MulCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "*");
-        public static void EqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "==");
-        public static void UnequalCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "!=");
-        public static void LessThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<");
-        public static void GreaterThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">");
-        public static void LessThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<=");
-        public static void GreaterThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">=");
+        public static void EqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "==", GetOperatingType(C, expr));
+        public static void UnequalCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "!=", GetOperatingType(C, expr));
+        public static void LessThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<", GetOperatingType(C, expr));
+        public static void GreaterThanCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">", GetOperatingType(C, expr));
+        public static void LessThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "<=", GetOperatingType(C, expr));
+        public static void GreaterThanOrEqualCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, ">=", GetOperatingType(C, expr));
         public static void AndAlsoCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "&&");
         public static void OrElseCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => OperationCmd(C, writer, expr, "||");
         public static void NotCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr) => UnaryOperationCmd(C, writer, expr, "!");
@@ -137,22 +137,24 @@ namespace e.lib.krnln
             writer.Write(")");
         }
 
-        public static void UnaryOperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation)
+        public static void UnaryOperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, CppTypeName expectedItemType = null)
         {
             if (expr.ParamList.Count != 1)
                 throw new ArgumentException();
             var resultType = expr.GetResultType();
-            var expectedItemType = resultType;
+            if (expectedItemType == null)
+                expectedItemType = resultType;
             writer.Write("(");
             writer.Write(operation);
             expr.ParamList[0].WriteToWithCast(writer, expectedItemType);
             writer.Write(")");
         }
 
-        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation)
+        public static void OperationCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr, string operation, CppTypeName expectedItemType = null)
         {
             var resultType = expr.GetResultType();
-            var expectedItemType = resultType;
+            if (expectedItemType == null)
+                expectedItemType = resultType;
             var itemSeparator = $" {operation} ";
             writer.Write("(");
             for (int i = 0; i < expr.ParamList.Count; i++)

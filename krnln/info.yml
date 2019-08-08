@@ -181,6 +181,20 @@ Cmd:
     Parameters:
     - DataType: bool
       Optional: true
+  选择:
+    CppName: e::lib::krnln::LogicUtils::IIf
+    ReturnDataType: e::system::any
+    Parameters:
+    - DataType: bool
+    - DataType: e::system::any
+    - DataType: e::system::any
+  多项选择:
+    CppName: e::lib::krnln::LogicUtils::Choose
+    ReturnDataType: e::system::any
+    Parameters:
+    - DataType: intptr_t
+    - DataType: e::system::any
+      VarArgs: true
   到整数:
     CppName: e::lib::krnln::ToInt32
     ReturnDataType: int32_t

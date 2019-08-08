@@ -11,7 +11,7 @@
 #include "RandomUtils.h"
 #include "DebugUtils.h"
 #include "ThreadUtils.h"
-
+#include "LogicUtils.h"
 namespace e
 {
     namespace lib

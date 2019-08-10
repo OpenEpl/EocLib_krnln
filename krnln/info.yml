@@ -306,6 +306,21 @@ Cmd:
     - DataType: "*"
       ByRef: true
     - DataType: "*"
+  加入成员:
+    CppName: e::lib::krnln::ArrayUtils::Append
+    Parameters:
+    - DataType: "*"
+      ByRef: true
+    - DataType: "*"
+      VarArgs: true
+  删除成员:
+    CppName: e::lib::krnln::ArrayUtils::Remove
+    Parameters:
+    - DataType: "*"
+      ByRef: true
+    - DataType: intptr_t
+    - DataType: intptr_t
+      Optional: true
   清除数组:
     CppName: e::lib::krnln::ArrayUtils::Clear
     Parameters:

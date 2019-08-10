@@ -116,7 +116,7 @@ namespace e
                     (Print(输出方向, arg2), 0),
                     (Print(输出方向, moreArgs), 0)...};
             }
-            e::system::string Input(std::optional<bool> 是否回显 = std::nullopt);
+            e::system::string Input(std::optional<bool> echo = std::nullopt);
             e::system::any GetDataFromBin(const e::system::bin &from, int32_t type, std::optional<std::reference_wrapper<int32_t>> pos = std::nullopt);
         }
     }

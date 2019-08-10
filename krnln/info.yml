@@ -567,6 +567,19 @@ Cmd:
     SuperTemplate:
       Class: e.lib.krnln.SuperTemplate
       Name: ShellCodeCmd
+  信息框:
+    CppName: e::lib::krnln::SystemUtils::ShowMessageBox
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: "*"
+    - DataType: int32_t
+    - DataType: e::system::string
+      Optional: true
+    - DataType: intptr_t
+      Optional: true
+  鸣叫:
+    CppName: e::lib::krnln::SystemUtils::PlayBeep
+    Parameters: []
 Type: {}
 Constant:
   标准输出设备:

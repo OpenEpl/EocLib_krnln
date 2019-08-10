@@ -12,6 +12,7 @@
 #include "DebugUtils.h"
 #include "ThreadUtils.h"
 #include "LogicUtils.h"
+#include "SystemHelper.h"
 namespace e
 {
     namespace lib

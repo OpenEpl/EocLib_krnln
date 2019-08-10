@@ -530,27 +530,27 @@ Cmd:
     - DataType: intptr_t
       Optional: true
   指针到整数:
-    CppName: e::lib::krnln::BinUtils::ReadInt32
+    CppName: e::lib::krnln::MemoryUtils::ReadInt32
     ReturnDataType: int32_t
     Parameters:
     - DataType: intptr_t
   指针到小数:
-    CppName: e::lib::krnln::BinUtils::ReadFloat
+    CppName: e::lib::krnln::MemoryUtils::ReadFloat
     ReturnDataType: float
     Parameters:
     - DataType: intptr_t
   指针到双精度小数:
-    CppName: e::lib::krnln::BinUtils::ReadDouble
+    CppName: e::lib::krnln::MemoryUtils::ReadDouble
     ReturnDataType: double
     Parameters:
     - DataType: intptr_t
   指针到文本:
-    CppName: e::lib::krnln::BinUtils::ReadText
+    CppName: e::lib::krnln::MemoryUtils::ReadText
     ReturnDataType: e::system::string
     Parameters:
     - DataType: intptr_t
   指针到字节集:
-    CppName: e::lib::krnln::BinUtils::ReadToBin
+    CppName: e::lib::krnln::MemoryUtils::ReadToBin
     ReturnDataType: e::system::bin
     Parameters:
     - DataType: intptr_t

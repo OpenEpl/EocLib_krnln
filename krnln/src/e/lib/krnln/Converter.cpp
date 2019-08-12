@@ -369,17 +369,6 @@ e::system::string e::lib::krnln::ToString(uint8_t value)
     return result;
 }
 
-e::system::string e::lib::krnln::ToString(const e::system::bin &value)
-{
-    auto length = value.GetSize();
-    if (length == 0)
-        return nullptr;
-    e::system::string result(length);
-    std::memcpy(result.c_str(), value.GetElemPtr(), length);
-    result.c_str()[length] = '\0';
-    return result;
-}
-
 e::system::string e::lib::krnln::ToString(const e::system::any &value)
 {
     if (value.type() == typeid(uint8_t))
@@ -417,6 +406,30 @@ e::system::string e::lib::krnln::ToString(const e::system::any &value)
     if (value.type() == typeid(e::system::bin))
     {
         return ToString(value.cast<e::system::bin>());
+    }
+    if (value.type() == typeid(e::system::array<uint8_t>))
+    {
+        return ToString(value.cast<e::system::array<uint8_t>>());
+    }
+    if (value.type() == typeid(e::system::array<int16_t>))
+    {
+        return ToString(value.cast<e::system::array<int16_t>>());
+    }
+    if (value.type() == typeid(e::system::array<int32_t>))
+    {
+        return ToString(value.cast<e::system::array<int32_t>>());
+    }
+    if (value.type() == typeid(e::system::array<int64_t>))
+    {
+        return ToString(value.cast<e::system::array<int64_t>>());
+    }
+    if (value.type() == typeid(e::system::array<float>))
+    {
+        return ToString(value.cast<e::system::array<float>>());
+    }
+    if (value.type() == typeid(e::system::array<double>))
+    {
+        return ToString(value.cast<e::system::array<double>>());
     }
     return nullptr;
 }

@@ -151,7 +151,17 @@ namespace e
 			e::system::string ToString(bool value);
 			e::system::string ToString(e::system::datetime value);
 			e::system::string ToString(uint8_t value);
-			e::system::string ToString(const e::system::bin &value);
+			template <typename TElem>
+			e::system::string ToString(const e::system::basic_array<TElem> &value)
+			{
+				auto length = value.GetSize() * sizeof(TElem);
+				if (length == 0)
+					return nullptr;
+				e::system::string result(length);
+				std::memcpy(result.c_str(), value.GetElemPtr(), length);
+				result.c_str()[length] = '\0';
+				return result;
+			}
 			inline e::system::string ToString(const e::system::string &value)
 			{
 				return value;

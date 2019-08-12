@@ -394,11 +394,30 @@ Cmd:
     - DataType: intptr_t
     - DataType: intptr_t
       Optional: true
+  插入成员:
+    CppName: e::lib::krnln::ArrayUtils::Insert
+    Parameters:
+    - DataType: "*"
+      ByRef: true
+    - DataType: intptr_t
+    - DataType: "*"
   清除数组:
     CppName: e::lib::krnln::ArrayUtils::Clear
     Parameters:
     - DataType: "*"
       ByRef: true
+  数组清零:
+    CppName: e::lib::krnln::ArrayUtils::Init
+    Parameters:
+    - DataType: "*"
+      ByRef: true
+  数组排序:
+    CppName: e::lib::krnln::ArrayUtils::Sort
+    Parameters:
+    - DataType: "*"
+      ByRef: true
+    - DataType: bool
+      Optional: true
   取字节集数据:
     CppName: e::lib::krnln::GetDataFromBin
     ReturnDataType: e::system::any

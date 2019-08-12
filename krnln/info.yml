@@ -168,6 +168,79 @@ Cmd:
       Name: IsNullParameterCmd
     Parameters:
     - DataType: "*"
+  取绝对值:
+    ReturnDataType: double
+    CppName: std::fabs
+    Parameters:
+    - DataType: double
+  取符号:
+    ReturnDataType: int32_t
+    CppName: e::lib::krnln::MathUtils::GetSign
+    Parameters:
+    - DataType: double
+  取整:
+    ReturnDataType: int32_t
+    CppName: e::lib::krnln::MathUtils::FloorToInt32
+    Parameters:
+    - DataType: double
+  绝对取整:
+    ReturnDataType: int32_t
+    CppName: e::lib::krnln::MathUtils::TruncToInt32
+    Parameters:
+    - DataType: double
+  四舍五入:
+    ReturnDataType: double
+    CppName: e::lib::krnln::MathUtils::Round
+    Parameters:
+    - DataType: double
+    - DataType: int32_t
+      Optional: true
+  求次方:
+    ReturnDataType: double
+    CppName: std::pow
+    Parameters:
+    - DataType: double
+    - DataType: double
+  求平方根:
+    ReturnDataType: double
+    CppName: std::sqrt
+    Parameters:
+    - DataType: double
+  求正弦:
+    ReturnDataType: double
+    CppName: std::sin
+    Parameters:
+    - DataType: double
+  求余弦:
+    ReturnDataType: double
+    CppName: std::cos
+    Parameters:
+    - DataType: double
+  求正切:
+    ReturnDataType: double
+    CppName: std::tan
+    Parameters:
+    - DataType: double
+  求反正切:
+    ReturnDataType: double
+    CppName: std::atan
+    Parameters:
+    - DataType: double
+  求自然对数:
+    ReturnDataType: double
+    CppName: std::log
+    Parameters:
+    - DataType: double
+  求反对数:
+    ReturnDataType: double
+    CppName: std::exp
+    Parameters:
+    - DataType: double
+  是否运算正确:
+    ReturnDataType: bool
+    CppName: std::isfinite
+    Parameters:
+    - DataType: double
   标准输出:
     CppName: e::lib::krnln::Print
     Parameters:

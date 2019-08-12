@@ -2,6 +2,7 @@
 #include <e/system/basic_type.h>
 #include <e/system/func.h>
 #include <iostream>
+#include <cmath>
 #include "Converter.h"
 #include "DateTimeUtils.h"
 #include "ArrayUtils.h"
@@ -13,6 +14,7 @@
 #include "ThreadUtils.h"
 #include "LogicUtils.h"
 #include "SystemHelper.h"
+#include "MathUtils.h"
 namespace e
 {
     namespace lib

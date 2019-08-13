@@ -30,6 +30,8 @@ namespace e
                     return ShowMessageBox(std::forward<T>(content), flags, std::optional(std::cref(title)), handle);
                 }
                 void PlayBeep();
+                e::system::string GetStartupPath();
+                e::system::string GetExecutableName();
             }
         }
     }

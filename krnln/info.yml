@@ -687,6 +687,14 @@ Cmd:
   鸣叫:
     CppName: e::lib::krnln::SystemUtils::PlayBeep
     Parameters: []
+  取运行目录:
+    ReturnDataType: e::system::string
+    CppName: e::lib::krnln::SystemUtils::GetStartupPath
+    Parameters: []
+  取执行文件名:
+    ReturnDataType: e::system::string
+    CppName: e::lib::krnln::SystemUtils::GetExecutableName
+    Parameters: []
 Type: {}
 Constant:
   标准输出设备:

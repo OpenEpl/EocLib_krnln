@@ -695,6 +695,9 @@ Cmd:
     ReturnDataType: e::system::string
     CppName: e::lib::krnln::SystemUtils::GetExecutableName
     Parameters: []
+  结束:
+    CppName: e::lib::krnln::SystemUtils::Exit
+    Parameters: []
 Type: {}
 Constant:
   标准输出设备:

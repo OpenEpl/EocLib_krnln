@@ -32,6 +32,7 @@ namespace e
                 void PlayBeep();
                 e::system::string GetStartupPath();
                 e::system::string GetExecutableName();
+                [[noreturn]] void Exit();
             }
         }
     }

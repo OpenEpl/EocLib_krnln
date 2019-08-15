@@ -1,5 +1,6 @@
 #include "SystemHelper.h"
 #include "Windows.h"
+#include <cstdlib>
 #include <e/system/func.h>
 
 int32_t e::lib::krnln::SystemUtils::ShowMessageBox(const e::system::string &content,
@@ -31,7 +32,7 @@ e::system::string e::lib::krnln::SystemUtils::GetStartupPath()
     else
         buf = std::move(buf_raw);
     auto x = wcsrchr(buf.get(), L'\\');
-    if(x == nullptr)
+    if (x == nullptr)
         return nullptr;
     *x = L'\0';
     return e::system::ReceiveNativeWideString(buf.get());
@@ -49,7 +50,12 @@ e::system::string e::lib::krnln::SystemUtils::GetExecutableName()
     else
         buf = std::move(buf_raw);
     auto x = wcsrchr(buf.get(), L'\\');
-    if(x == nullptr)
+    if (x == nullptr)
         return nullptr;
     return e::system::ReceiveNativeWideString(x + 1);
+}
+
+void e::lib::krnln::SystemUtils::Exit()
+{
+    std::exit(0);
 }

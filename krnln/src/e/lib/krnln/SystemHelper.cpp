@@ -11,7 +11,7 @@ int32_t e::lib::krnln::SystemUtils::ShowMessageBox(const e::system::string &cont
     std::unique_ptr<wchar_t[]> titleW;
     if (title.has_value())
         titleW = e::system::ToNativeWideString(title.value());
-    return MessageBoxW((HWND)handle.value_or(0), contentW.get(), titleW.get(), flags) - 1;
+    return MessageBoxW((HWND)handle.value_or(0), contentW.get(), titleW ? titleW.get() : L"–≈œ¢£∫", flags) - 1;
 }
 
 void e::lib::krnln::SystemUtils::PlayBeep()

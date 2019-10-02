@@ -698,6 +698,123 @@ Cmd:
   结束:
     CppName: e::lib::krnln::SystemUtils::Exit
     Parameters: []
+  打开内存文件:
+    CppName: e::lib::krnln::FileUtils::NewMemoryFile
+    ReturnDataType: intptr_t
+    Parameters: []
+  打开文件:
+    CppName: e::lib::krnln::FileUtils::OpenFile
+    ReturnDataType: intptr_t
+    Parameters: 
+    - DataType: e::system::string
+    - DataType: int32_t
+      Optional: true
+    - DataType: int32_t
+      Optional: true
+  关闭文件:
+    CppName: e::lib::krnln::FileUtils::CloseFile
+    Parameters: 
+    - DataType: intptr_t
+  移动读写位置:
+    CppName: e::lib::krnln::FileUtils::Seek
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: int32_t
+    - DataType: int32_t
+      Optional: true
+  移到文件首:
+    CppName: e::lib::krnln::FileUtils::SeekToBegin
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+  移到文件尾:
+    CppName: e::lib::krnln::FileUtils::SeekToEnd
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+  读入字节集:
+    CppName: e::lib::krnln::FileUtils::ReadData
+    ReturnDataType: e::system::bin
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: int32_t
+  写出字节集:
+    CppName: e::lib::krnln::FileUtils::WriteData
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: e::system::bin
+      VarArgs: true
+  读入文本:
+    CppName: e::lib::krnln::FileUtils::ReadText
+    ReturnDataType: e::system::string
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: int32_t
+      Optional: true
+  写出文本:
+    CppName: e::lib::krnln::FileUtils::WriteText
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: "*"
+      VarArgs: true
+  读入一行:
+    CppName: e::lib::krnln::FileUtils::ReadLine
+    ReturnDataType: e::system::string
+    Parameters: 
+    - DataType: intptr_t
+  写文本行:
+    CppName: e::lib::krnln::FileUtils::WriteLine
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: "*"
+      VarArgs: true
+  读入数据:
+    CppName: e::lib::krnln::FileUtils::ReadObject
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: "*"
+      ByRef: true
+      VarArgs: true
+  写出数据:
+    CppName: e::lib::krnln::FileUtils::WriteObject
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: "*"
+      VarArgs: true
+  是否在文件尾:
+    CppName: e::lib::krnln::FileUtils::IsEOF
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: bool
+      Optional: true
+  取读写位置:
+    CppName: e::lib::krnln::FileUtils::GetPosition
+    ReturnDataType: int32_t
+    Parameters: 
+    - DataType: intptr_t
+  取文件长度:
+    CppName: e::lib::krnln::FileUtils::GetLength
+    ReturnDataType: int32_t
+    Parameters: 
+    - DataType: intptr_t
+  取临时文件名:
+    CppName: e::lib::krnln::FileUtils::GetTempFile
+    ReturnDataType: e::system::string
+    Parameters: 
+    - DataType: e::system::string
+      Optional: true
+  删除文件:
+    CppName: e::lib::krnln::FileUtils::DeleteDiskFile
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: e::system::string
 Type: {}
 Constant:
   标准输出设备:

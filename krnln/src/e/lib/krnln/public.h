@@ -15,6 +15,7 @@
 #include "LogicUtils.h"
 #include "SystemHelper.h"
 #include "MathUtils.h"
+#include "file/FileUtils.h"
 namespace e
 {
     namespace lib

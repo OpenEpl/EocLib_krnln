@@ -1,4 +1,4 @@
-#include "BinUtils.h"
+﻿#include "BinUtils.h"
 #include "FindAllHelper.h"
 
 intptr_t e::lib::krnln::BinUtils::Len(const e::system::bin &x)
@@ -71,7 +71,7 @@ e::system::bin e::lib::krnln::BinUtils::Repeat(intptr_t times, const e::system::
 
 inline intptr_t myMemmem_EStyle(const void *haystack, size_t haystacklen, const void *needle, size_t needlelen, size_t s)
 {
-    //Sunday�㷨
+    //Sunday算法
 
     size_t next[256];
     const uint8_t *internalHaystack = static_cast<const uint8_t *>(haystack);
@@ -120,7 +120,7 @@ inline intptr_t myMemmem_EStyle(const void *haystack, size_t haystacklen, const 
 
 inline intptr_t myMemrmem_EStyle(const void *haystack, size_t haystacklen, const void *needle, size_t needlelen, intptr_t s)
 {
-    //Sunday�㷨
+    //Sunday算法
 
     intptr_t next[256];
     const uint8_t *internalHaystack = static_cast<const uint8_t *>(haystack);

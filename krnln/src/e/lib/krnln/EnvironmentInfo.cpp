@@ -1,4 +1,4 @@
-#include "EnvironmentInfo.h"
+﻿#include "EnvironmentInfo.h"
 #include <e/system/func.h>
 #include <chrono>
 #include <windows.h>

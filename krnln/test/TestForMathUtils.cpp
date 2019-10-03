@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+﻿#include <catch2/catch.hpp>
 #include <e/lib/krnln/MathUtils.h>
 using namespace e::lib::krnln;
 TEST_CASE("MathUtils::FloorToInt32", "[MathUtils]")

@@ -1,4 +1,4 @@
-#include "DateTimeUtils.h"
+ï»¿#include "DateTimeUtils.h"
 #include <Windows.h>
 #include <sstream>
 #include <cmath>
@@ -27,20 +27,20 @@ e::system::string e::lib::krnln::DateTimeUtils::DateTimeToString(e::system::date
     if (convertDate)
     {
         s << info.wYear;
-        s << "Äê";
+        s << "å¹´";
         s << info.wMonth;
-        s << "ÔÂ";
+        s << "æœˆ";
         s << info.wDay;
-        s << "ÈÕ";
+        s << "æ—¥";
     }
     if (convertTime && (info.wHour | info.wMinute | info.wSecond))
     {
         s << info.wHour;
-        s << "Ê±";
+        s << "æ—¶";
         s << info.wMinute;
-        s << "·Ö";
+        s << "åˆ†";
         s << info.wSecond;
-        s << "Ãë";
+        s << "ç§’";
     }
     return e::system::string(s.str().c_str());
 }
@@ -57,7 +57,7 @@ e::system::datetime e::lib::krnln::DateTimeUtils::Now()
 e::system::datetime e::lib::krnln::DateTimeUtils::GetTimePart(e::system::datetime x)
 {
     double intpart;
-    return e::system::datetime(std::modf(x.value, &intpart) + 36526.0 /* 2000Äê1ÔÂ1ÈÕ */);
+    return e::system::datetime(std::modf(x.value, &intpart) + 36526.0 /* 2000å¹´1æœˆ1æ—¥ */);
 }
 
 e::system::datetime e::lib::krnln::DateTimeUtils::GetDatePart(e::system::datetime x)

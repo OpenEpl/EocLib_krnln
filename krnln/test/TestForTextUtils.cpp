@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+Ôªø#include <catch2/catch.hpp>
 #include <e/lib/krnln/TextUtils.h>
 using namespace e::lib::krnln;
 TEST_CASE("TextUtils::GetCodePoint", "[TextUtils]")
@@ -44,7 +44,7 @@ TEST_CASE("TextUtils::IndexOf", "[TextUtils]")
     CHECK(TextUtils::IndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
     CHECK(TextUtils::IndexOf(nullptr, EOC_STR_CONST("s")) == -1);
     CHECK(TextUtils::IndexOf(nullptr, nullptr) == -1);
-    CHECK(TextUtils::IndexOf(EOC_STR_CONST("Œ“∞Æƒ„≤ª∞ÆŒ“"), EOC_STR_CONST("∞Æ")) == 3);
+    CHECK(TextUtils::IndexOf(EOC_STR_CONST("ÊàëÁà±‰Ω†‰∏çÁà±Êàë"), EOC_STR_CONST("Áà±")) == 3);
 }
 
 TEST_CASE("TextUtils::LastIndexOf", "[TextUtils]")
@@ -58,7 +58,7 @@ TEST_CASE("TextUtils::LastIndexOf", "[TextUtils]")
     CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("asdfs"), EOC_STR_CONST("")) == -1);
     CHECK(TextUtils::LastIndexOf(nullptr, EOC_STR_CONST("s")) == -1);
     CHECK(TextUtils::LastIndexOf(nullptr, nullptr) == -1);
-    CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("Œ“∞Æƒ„≤ª∞ÆŒ“"), EOC_STR_CONST("Œ“")) == 11);
+    CHECK(TextUtils::LastIndexOf(EOC_STR_CONST("ÊàëÁà±‰Ω†‰∏çÁà±Êàë"), EOC_STR_CONST("Êàë")) == 11);
 }
 
 TEST_CASE("TextUtils::ToLower", "[TextUtils]")

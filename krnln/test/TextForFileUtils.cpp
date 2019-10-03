@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+﻿#include <catch2/catch.hpp>
 #include <e/lib/krnln/file/FileUtils.h>
 #include <e/lib/krnln/BinUtils.h>
 #include <e/lib/krnln/TextUtils.h>

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <e/system/basic_type.h>
 #include <cmath>
 namespace e

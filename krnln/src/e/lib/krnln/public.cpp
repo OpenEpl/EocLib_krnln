@@ -1,4 +1,4 @@
-#include "public.h"
+﻿#include "public.h"
 #include <conio.h>
 e::system::string e::lib::krnln::Input(std::optional<bool> echo)
 {

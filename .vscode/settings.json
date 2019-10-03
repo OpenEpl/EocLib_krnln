@@ -3,9 +3,6 @@
     "cmake.configureSettings": {
         "EocKrnln_BUILD_TESTS": true
     },
-    "[cpp]": {
-        "files.encoding": "gb18030"
-    },
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "files.associations": {
         "algorithm": "cpp",

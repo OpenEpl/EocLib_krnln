@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+﻿#include <catch2/catch.hpp>
 #include <e/lib/krnln/ArrayUtils.h>
 using namespace e::lib::krnln;
 TEST_CASE("ArrayUtils", "[ArrayUtils]")

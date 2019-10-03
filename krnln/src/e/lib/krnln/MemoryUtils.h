@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <e/system/func.h>
 namespace e
 {

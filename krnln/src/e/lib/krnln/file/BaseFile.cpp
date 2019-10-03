@@ -1,4 +1,4 @@
-#include "BaseFile.h"
+﻿#include "BaseFile.h"
 #include <vector>
 #include <algorithm>
 

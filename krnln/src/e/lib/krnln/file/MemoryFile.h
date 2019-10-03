@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "BaseFile.h"
 #include <vector>
 #include <algorithm>

@@ -1,9 +1,9 @@
-#include "File.h"
+ï»¿#include "File.h"
 #include <windows.h>
 #include <limits>
 #include <algorithm>
 
-//±ÜÃâWindows.hµÄÎÛÈ¾
+//é¿å…Windows.hçš„æ±¡æŸ“
 #undef max
 #undef min
 

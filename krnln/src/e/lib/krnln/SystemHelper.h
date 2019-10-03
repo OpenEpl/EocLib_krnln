@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <e/system/basic_type.h>
 #include "Converter.h"
 namespace e

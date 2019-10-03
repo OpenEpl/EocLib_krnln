@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+﻿#include <catch2/catch.hpp>
 #include <e/lib/krnln/Converter.h>
 using namespace e::lib;
 TEST_CASE("krnln::ToString", "[Converter]")

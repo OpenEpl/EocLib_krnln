@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+ï»¿#include <catch2/catch.hpp>
 #include <e/lib/krnln/DateTimeUtils.h>
 using namespace e::lib::krnln;
 TEST_CASE("DateTimeUtils::BuildDateTime", "[DateTimeUtils]")
@@ -9,10 +9,10 @@ TEST_CASE("DateTimeUtils::BuildDateTime", "[DateTimeUtils]")
 
 TEST_CASE("DateTimeUtils::DateTimeToString", "[DateTimeUtils]")
 {
-    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7)) == "2019Äê12ÔÂ31ÈÕ5Ê±6·Ö7Ãë");
-    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31)) == "2019Äê12ÔÂ31ÈÕ");
-    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7), DateTimeUtils::ConvertDate) == "2019Äê12ÔÂ31ÈÕ");
-    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7), DateTimeUtils::ConvertTime) == "5Ê±6·Ö7Ãë");
+    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7)) == "2019å¹´12æœˆ31æ—¥5æ—¶6åˆ†7ç§’");
+    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31)) == "2019å¹´12æœˆ31æ—¥");
+    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7), DateTimeUtils::ConvertDate) == "2019å¹´12æœˆ31æ—¥");
+    REQUIRE(DateTimeUtils::DateTimeToString(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7), DateTimeUtils::ConvertTime) == "5æ—¶6åˆ†7ç§’");
 }
 
 TEST_CASE("DateTimeUtils::GetTimePart", "[DateTimeUtils]")

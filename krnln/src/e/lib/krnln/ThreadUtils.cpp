@@ -1,4 +1,4 @@
-#include "ThreadUtils.h"
+﻿#include "ThreadUtils.h"
 #include <thread>
 void e::lib::krnln::ThreadUtils::SleepFor(int32_t duration)
 {

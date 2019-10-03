@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <e/system/basic_type.h>
 #include <e/system/func.h>
 #include <iostream>
@@ -41,85 +41,85 @@ namespace e
                 const int32_t MethodPtrType(9);
                 const int32_t StringType(10);
             }
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘)
             {
                 return;
             }
             template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò, T ÓûÊä³öÄÚÈİ)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, T æ¬²è¾“å‡ºå†…å®¹)
             {
-                std::ostream &out = Êä³ö·½Ïò.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
-                out << ÓûÊä³öÄÚÈİ;
+                std::ostream &out = è¾“å‡ºæ–¹å‘.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
+                out << æ¬²è¾“å‡ºå†…å®¹;
             }
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò, bool ÓûÊä³öÄÚÈİ)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, bool æ¬²è¾“å‡ºå†…å®¹)
             {
-                std::ostream &out = Êä³ö·½Ïò.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
-                out << (ÓûÊä³öÄÚÈİ ? "Õæ" : "¼Ù");
+                std::ostream &out = è¾“å‡ºæ–¹å‘.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
+                out << (æ¬²è¾“å‡ºå†…å®¹ ? "çœŸ" : "å‡");
             }
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò, const e::system::string &ÓûÊä³öÄÚÈİ)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, const e::system::string &æ¬²è¾“å‡ºå†…å®¹)
             {
-                std::ostream &out = Êä³ö·½Ïò.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
-                if (ÓûÊä³öÄÚÈİ.isEmpty())
+                std::ostream &out = è¾“å‡ºæ–¹å‘.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
+                if (æ¬²è¾“å‡ºå†…å®¹.isEmpty())
                     out << "";
                 else
-                    out << ÓûÊä³öÄÚÈİ.c_str();
+                    out << æ¬²è¾“å‡ºå†…å®¹.c_str();
             }
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò, e::system::datetime ÓûÊä³öÄÚÈİ)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, e::system::datetime æ¬²è¾“å‡ºå†…å®¹)
             {
-                std::ostream &out = Êä³ö·½Ïò.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
-                out << "e::system::datetime(" << ÓûÊä³öÄÚÈİ.value << ")";
+                std::ostream &out = è¾“å‡ºæ–¹å‘.value_or(constant::StdOut) == constant::StdOut ? std::cout : std::cerr;
+                out << "e::system::datetime(" << æ¬²è¾“å‡ºå†…å®¹.value << ")";
             }
-            inline void Print(std::optional<int32_t> Êä³ö·½Ïò, const e::system::any &ÓûÊä³öÄÚÈİ)
+            inline void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, const e::system::any &æ¬²è¾“å‡ºå†…å®¹)
             {
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(int32_t))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(int32_t))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<int32_t>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<int32_t>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(uint8_t))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(uint8_t))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<uint8_t>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<uint8_t>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(int16_t))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(int16_t))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<int16_t>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<int16_t>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(int64_t))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(int64_t))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<int64_t>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<int64_t>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(double))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(double))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<double>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<double>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(float))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(float))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<float>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<float>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(bool))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(bool))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<bool>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<bool>());
                     return;
                 }
-                if (ÓûÊä³öÄÚÈİ.type() == typeid(e::system::string))
+                if (æ¬²è¾“å‡ºå†…å®¹.type() == typeid(e::system::string))
                 {
-                    Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<e::system::string>());
+                    Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<e::system::string>());
                     return;
                 }
-                Print(Êä³ö·½Ïò, ÓûÊä³öÄÚÈİ.cast<e::system::datetime>());
+                Print(è¾“å‡ºæ–¹å‘, æ¬²è¾“å‡ºå†…å®¹.cast<e::system::datetime>());
             }
             template <typename Arg1, typename Arg2, typename... MoreArgs>
-            void Print(std::optional<int32_t> Êä³ö·½Ïò, const Arg1 &arg1, const Arg2 &arg2, const MoreArgs &... moreArgs)
+            void Print(std::optional<int32_t> è¾“å‡ºæ–¹å‘, const Arg1 &arg1, const Arg2 &arg2, const MoreArgs &... moreArgs)
             {
                 int dummy[] = {
-                    (Print(Êä³ö·½Ïò, arg1), 0),
-                    (Print(Êä³ö·½Ïò, arg2), 0),
-                    (Print(Êä³ö·½Ïò, moreArgs), 0)...};
+                    (Print(è¾“å‡ºæ–¹å‘, arg1), 0),
+                    (Print(è¾“å‡ºæ–¹å‘, arg2), 0),
+                    (Print(è¾“å‡ºæ–¹å‘, moreArgs), 0)...};
             }
             e::system::string Input(std::optional<bool> echo = std::nullopt);
             e::system::any GetDataFromBin(const e::system::bin &from, int32_t type, std::optional<std::reference_wrapper<int32_t>> pos = std::nullopt);

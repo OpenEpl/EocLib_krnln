@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+Ôªø#define _CRT_SECURE_NO_WARNINGS
 
 #include "Converter.h"
 #include "DateTimeUtils.h"
@@ -469,7 +469,7 @@ e::system::string e::lib::krnln::ToString(double value)
 
 e::system::string e::lib::krnln::ToString(bool value)
 {
-    return value ? e::system::string("’Ê") : e::system::string("ºŸ");
+    return value ? e::system::string("Áúü") : e::system::string("ÂÅá");
 }
 
 e::system::string e::lib::krnln::ToString(e::system::datetime value)

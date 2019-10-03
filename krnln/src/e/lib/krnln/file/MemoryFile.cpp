@@ -1,4 +1,4 @@
-#include "MemoryFile.h"
+﻿#include "MemoryFile.h"
 
 size_t e::lib::krnln::MemoryFile::Read(void *buffer, size_t length)
 {

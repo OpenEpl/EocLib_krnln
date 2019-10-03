@@ -829,6 +829,18 @@ Cmd:
     Parameters: 
     - DataType: e::system::array<e::system::string>
       ByRef: true
+  读入文件:
+    CppName: e::lib::krnln::FileUtils::ReadAllBytes
+    ReturnDataType: e::system::bin
+    Parameters: 
+    - DataType: e::system::string
+  写到文件:
+    CppName: e::lib::krnln::FileUtils::WriteAllBytes
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: e::system::string
+    - DataType: e::system::bin
+      VarArgs: true
 Type: {}
 Constant:
   标准输出设备:

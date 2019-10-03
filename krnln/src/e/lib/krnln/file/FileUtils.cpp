@@ -3,6 +3,9 @@
 #include <windows.h>
 #include <rpc.h>
 
+#undef max
+#undef min
+
 intptr_t e::lib::krnln::FileUtils::NewMemoryFile()
 {
     auto object = static_cast<BaseFile *>(new MemoryFile());
@@ -195,4 +198,68 @@ e::system::string e::lib::krnln::FileUtils::GetTempFile(std::optional<std::refer
     }
     RpcStringFreeA(&idStr);
     return result;
+}
+
+e::system::bin e::lib::krnln::FileUtils::ReadAllBytes(const e::system::string &path)
+{
+    e::system::bin result;
+    auto pathW = e::system::ToNativeWideString(path);
+    auto handle = CreateFileW(pathW.get(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    if (handle == 0 || handle == INVALID_HANDLE_VALUE)
+        return nullptr;
+    LARGE_INTEGER fileSizeStruct;
+    if (!GetFileSizeEx(handle, &fileSizeStruct))
+        goto cleanup;
+    auto fileSize = static_cast<unsigned long long>(fileSizeStruct.QuadPart);
+    if (fileSize > std::numeric_limits<size_t>::max())
+        goto cleanup;
+    auto binLen = static_cast<size_t>(fileSize);
+    result.Redim(false, binLen);
+
+    size_t numOfRead = 0;
+    DWORD numOfReadThisTime;
+    auto buffer = result.GetElemPtr();
+    while (numOfRead < binLen)
+    {
+        DWORD bufferSize = static_cast<DWORD>(std::min<size_t>(binLen - numOfRead, static_cast<size_t>(std::numeric_limits<DWORD>::max())));
+        if (!ReadFile(handle, buffer, bufferSize, &numOfReadThisTime, NULL))
+        {
+            result = nullptr;
+            goto cleanup;
+        }
+        numOfRead += static_cast<size_t>(numOfReadThisTime);
+        buffer += numOfReadThisTime;
+    }
+
+cleanup:
+    CloseHandle(handle);
+    return result;
+}
+
+bool e::lib::krnln::FileUtils::WriteAllBytes(const e::system::string &path, const e::system::bin &x)
+{
+    bool success = false;
+    auto pathW = e::system::ToNativeWideString(path);
+    auto handle = CreateFileW(pathW.get(), GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    if (handle == 0 || handle == INVALID_HANDLE_VALUE)
+        return false;
+    
+    auto buffer = x.GetElemPtr();
+    auto length = x.GetSize();
+    while (length)
+    {
+        DWORD numOfWritten;
+        DWORD bufferSize = static_cast<DWORD>(std::min<size_t>(length, std::numeric_limits<DWORD>::max()));
+        if (!WriteFile((HANDLE)handle, buffer, bufferSize, &numOfWritten, NULL))
+        {
+            goto cleanup;
+        }
+        length -= numOfWritten;
+        buffer = &static_cast<uint8_t *>(buffer)[numOfWritten];
+    }
+
+    success = true;
+cleanup:
+    CloseHandle(handle);
+    return success;
 }

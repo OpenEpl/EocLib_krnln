@@ -141,3 +141,15 @@ TEST_CASE("Differrnt I/O Access Mode for Local File", "[FileUtils]")
 
     FileUtils::DeleteDiskFile(path);
 }
+
+TEST_CASE("Read/Write All Bytes", "[FileUtils]")
+{
+    auto path = FileUtils::GetTempFile();
+    FileUtils::WriteAllBytes(path, e::system::bin{'A', 'B', 'C'});
+    CHECK(FileUtils::ReadAllBytes(path) == e::system::bin{'A', 'B', 'C'});
+    FileUtils::WriteAllBytes(path, e::system::bin{'A', 'B', 'C'}, e::system::bin{'1', '2', '3'});
+    CHECK(FileUtils::ReadAllBytes(path) == e::system::bin{'A', 'B', 'C', '1', '2', '3'});
+    FileUtils::WriteAllBytes(path, e::system::bin{'A', 'B', 'C'}, e::system::bin{'1', '2', '3'}, e::system::bin{'(', '^', ')'});
+    CHECK(FileUtils::ReadAllBytes(path) == e::system::bin{'A', 'B', 'C', '1', '2', '3', '(', '^', ')'});
+    FileUtils::DeleteDiskFile(path);
+}

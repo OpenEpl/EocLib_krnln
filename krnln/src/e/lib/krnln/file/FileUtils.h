@@ -101,6 +101,15 @@ namespace e
                         return false;
                     }
                 }
+
+                e::system::bin ReadAllBytes(const e::system::string &path);
+                bool WriteAllBytes(const e::system::string &path, const e::system::bin &x);
+
+                template <typename... TArgs>
+                bool WriteAllBytes(const e::system::string &path, const e::system::bin &first, const TArgs &... args)
+                {
+                    return e::lib::krnln::FileUtils::WriteAllBytes(path, (first + ... + static_cast<e::system::bin>(args)));
+                }
             }
         }
     }

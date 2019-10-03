@@ -3,6 +3,9 @@
     "cmake.configureSettings": {
         "EocKrnln_BUILD_TESTS": true
     },
+    "[cpp]": {
+        "files.encoding": "utf8bom"
+    },
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "files.associations": {
         "algorithm": "cpp",

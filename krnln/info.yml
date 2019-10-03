@@ -345,7 +345,7 @@ Cmd:
     ReturnDataType: e::system::datetime
     Parameters: []
   取启动时间:
-    CppName: e::lib::krnln::DateTimeUtils::Tick
+    CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t
     Parameters: []
   延时:
@@ -689,11 +689,11 @@ Cmd:
     Parameters: []
   取运行目录:
     ReturnDataType: e::system::string
-    CppName: e::lib::krnln::SystemUtils::GetStartupPath
+    CppName: e::lib::krnln::EnvironmentInfo::GetStartupPath
     Parameters: []
   取执行文件名:
     ReturnDataType: e::system::string
-    CppName: e::lib::krnln::SystemUtils::GetExecutableName
+    CppName: e::lib::krnln::EnvironmentInfo::GetExecutableName
     Parameters: []
   结束:
     CppName: e::lib::krnln::SystemUtils::Exit

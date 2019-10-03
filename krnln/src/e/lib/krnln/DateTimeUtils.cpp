@@ -80,8 +80,3 @@ e::system::datetime e::lib::krnln::DateTimeUtils::BuildDateTime(int32_t year, st
     SystemTimeToVariantTime(&info, &result.value);
     return result;
 }
-
-int32_t e::lib::krnln::DateTimeUtils::Tick()
-{
-    return static_cast<int32_t>(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
-}

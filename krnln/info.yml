@@ -815,6 +815,20 @@ Cmd:
     ReturnDataType: bool
     Parameters: 
     - DataType: e::system::string
+  取当前目录:
+    CppName: e::lib::krnln::EnvironmentInfo::GetCurrentDirectory
+    ReturnDataType: e::system::string
+    Parameters: []
+  改变目录:
+    CppName: e::lib::krnln::EnvironmentInfo::SetCurrentDirectory
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: e::system::string
+  取命令行:
+    CppName: e::lib::krnln::EnvironmentInfo::GetCommandLineArguments
+    Parameters: 
+    - DataType: e::system::array<e::system::string>
+      ByRef: true
 Type: {}
 Constant:
   标准输出设备:

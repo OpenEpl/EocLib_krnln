@@ -42,3 +42,40 @@ int32_t e::lib::krnln::EnvironmentInfo::Tick()
 {
     return static_cast<int32_t>(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
 }
+
+#undef GetCurrentDirectory
+e::system::string e::lib::krnln::EnvironmentInfo::GetCurrentDirectory()
+{
+    auto len = GetCurrentDirectoryW(0, nullptr);
+    auto buf = std::make_unique<wchar_t[]>(len);
+    GetCurrentDirectoryW(len, buf.get());
+    return e::system::ReceiveNativeWideString(buf.get());
+}
+
+#undef SetCurrentDirectory
+bool e::lib::krnln::EnvironmentInfo::SetCurrentDirectory(const e::system::string &path)
+{
+    return SetCurrentDirectoryW(e::system::ToNativeWideString(path).get()) != 0;
+}
+
+void e::lib::krnln::EnvironmentInfo::GetCommandLineArguments(e::system::array<e::system::string> &arguments)
+{
+    LPWSTR *szArglist;
+    int nArgs;
+    int i;
+
+    szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+    if (szArglist == nullptr)
+    {
+        arguments = nullptr;
+    }
+    else
+    {
+        arguments.Redim(false, nArgs - 1);
+        for (i = 1; i < nArgs; i++)
+        {
+            arguments.At(i) = e::system::ReceiveNativeWideString(szArglist[i]);
+        }
+    }
+    LocalFree(szArglist);
+}

@@ -16,6 +16,7 @@
 #include "SystemHelper.h"
 #include "MathUtils.h"
 #include "file/FileUtils.h"
+#include "EnvironmentInfo.h"
 namespace e
 {
     namespace lib

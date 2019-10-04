@@ -32,7 +32,7 @@ namespace e
                 e::system::string GetTempFile(std::optional<std::reference_wrapper<const e::system::string>> dir = std::nullopt);
                 inline e::system::string GetTempFile(const e::system::string &dir)
                 {
-                    GetTempFile(std::optional(std::cref(dir)));
+                    return GetTempFile(std::optional(std::cref(dir)));
                 }
                 bool Seek(intptr_t id, std::optional<int32_t> whence, int32_t offset);
                 bool SeekToBegin(intptr_t id);
@@ -44,7 +44,7 @@ namespace e
                     try
                     {
                         auto object = reinterpret_cast<BaseFile *>(id);
-                        int dummy[] = {0,
+                        [[maybe_unused]] int dummy[] = {0,
                             (object->WriteText(krnln::ToString(x)), 0)...};
                         return true;
                     }
@@ -60,7 +60,7 @@ namespace e
                     try
                     {
                         auto object = reinterpret_cast<BaseFile *>(id);
-                        int dummy[] = {0,
+                        [[maybe_unused]] int dummy[] = {0,
                             (object->WriteLine(krnln::ToString(x)), 0)...};
                         return true;
                     }
@@ -76,7 +76,7 @@ namespace e
                     try
                     {
                         auto object = reinterpret_cast<BaseFile *>(id);
-                        int dummy[] = {0,
+                        [[maybe_unused]] int dummy[] = {0,
                             (object->ReadObject(x), 0)...};
                         return true;
                     }
@@ -92,7 +92,7 @@ namespace e
                     try
                     {
                         auto object = reinterpret_cast<BaseFile *>(id);
-                        int dummy[] = {0,
+                        [[maybe_unused]] int dummy[] = {0,
                             (object->WriteObject(x), 0)...};
                         return true;
                     }

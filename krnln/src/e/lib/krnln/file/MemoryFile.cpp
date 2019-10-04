@@ -7,7 +7,7 @@ size_t e::lib::krnln::MemoryFile::Read(void *buffer, size_t length)
     position += numOfRead;
     return numOfRead;
 }
-void e::lib::krnln::MemoryFile::Write(void *buffer, size_t length)
+void e::lib::krnln::MemoryFile::Write(const void *buffer, size_t length)
 {
     if (position + length > data.size())
         data.resize(position + length);

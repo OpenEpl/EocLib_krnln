@@ -18,7 +18,7 @@ namespace e
                 File &operator=(File &&file) noexcept;
                 virtual ~File();
                 virtual size_t Read(void *buffer, size_t length) override;
-                virtual void Write(void *buffer, size_t length) override;
+                virtual void Write(const void *buffer, size_t length) override;
                 virtual unsigned long long GetLength() override;
                 virtual unsigned long long GetPosition() override;
                 virtual void SetPosition(unsigned long long newPosition) override;

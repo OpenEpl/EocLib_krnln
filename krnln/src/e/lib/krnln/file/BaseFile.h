@@ -38,7 +38,7 @@ namespace e
             public:
                 virtual ~BaseFile() = default;
                 virtual size_t Read(void *buffer, size_t length) = 0;
-                virtual void Write(void *buffer, size_t length) = 0;
+                virtual void Write(const void *buffer, size_t length) = 0;
                 virtual unsigned long long GetLength() = 0;
                 virtual unsigned long long GetPosition() = 0;
                 virtual void SetPosition(unsigned long long position) = 0;

@@ -116,7 +116,7 @@ namespace e
             template <typename Arg1, typename Arg2, typename... MoreArgs>
             void Print(std::optional<int32_t> 输出方向, const Arg1 &arg1, const Arg2 &arg2, const MoreArgs &... moreArgs)
             {
-                int dummy[] = {
+                [[maybe_unused]] int dummy[] = {
                     (Print(输出方向, arg1), 0),
                     (Print(输出方向, arg2), 0),
                     (Print(输出方向, moreArgs), 0)...};

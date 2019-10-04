@@ -49,7 +49,7 @@ size_t e::lib::krnln::File::Read(void *buffer, size_t length)
     return numOfRead;
 }
 
-void e::lib::krnln::File::Write(void *buffer, size_t length)
+void e::lib::krnln::File::Write(const void *buffer, size_t length)
 {
     DWORD numOfWritten;
 
@@ -61,7 +61,7 @@ void e::lib::krnln::File::Write(void *buffer, size_t length)
             throw std::runtime_error("Failed to write");
         }
         length -= numOfWritten;
-        buffer = &static_cast<uint8_t *>(buffer)[numOfWritten];
+        buffer = &static_cast<const uint8_t *>(buffer)[numOfWritten];
     }
 }
 

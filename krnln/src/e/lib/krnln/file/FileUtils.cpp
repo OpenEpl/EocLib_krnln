@@ -17,9 +17,9 @@ intptr_t e::lib::krnln::FileUtils::OpenFile(const e::system::string &filePath, s
     BaseFile *object;
     try
     {
-        object = new File(std::move(File::Open(filePath,
+        object = new File(File::Open(filePath,
             static_cast<FileAccessMode>(accessMode.value_or(1)),
-            static_cast<FileShareMode>(shareMode.value_or(1)))));
+            static_cast<FileShareMode>(shareMode.value_or(1))));
     }
     catch (...)
     {
@@ -208,17 +208,20 @@ e::system::bin e::lib::krnln::FileUtils::ReadAllBytes(const e::system::string &p
     if (handle == 0 || handle == INVALID_HANDLE_VALUE)
         return nullptr;
     LARGE_INTEGER fileSizeStruct;
-    if (!GetFileSizeEx(handle, &fileSizeStruct))
-        goto cleanup;
-    auto fileSize = static_cast<unsigned long long>(fileSizeStruct.QuadPart);
-    if (fileSize > std::numeric_limits<size_t>::max())
-        goto cleanup;
-    auto binLen = static_cast<size_t>(fileSize);
-    result.Redim(false, binLen);
-
+    unsigned long long fileSize;
+    size_t binLen;
     size_t numOfRead = 0;
     DWORD numOfReadThisTime;
-    auto buffer = result.GetElemPtr();
+    uint8_t *buffer;
+
+    if (!GetFileSizeEx(handle, &fileSizeStruct))
+        goto cleanup;
+    fileSize = static_cast<unsigned long long>(fileSizeStruct.QuadPart);
+    if (fileSize > std::numeric_limits<size_t>::max())
+        goto cleanup;
+    binLen = static_cast<size_t>(fileSize);
+    result.Redim(false, binLen);
+    buffer = result.GetElemPtr();
     while (numOfRead < binLen)
     {
         DWORD bufferSize = static_cast<DWORD>(std::min<size_t>(binLen - numOfRead, static_cast<size_t>(std::numeric_limits<DWORD>::max())));

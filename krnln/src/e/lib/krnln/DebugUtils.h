@@ -34,7 +34,7 @@ namespace e
                 template <typename Arg1, typename Arg2, typename... MoreArgs>
                 void OutputDebugInfo(const Arg1 &arg1, const Arg2 &arg2, const MoreArgs &... moreArgs)
                 {
-                    int dummy[] = {
+                    [[maybe_unused]] int dummy[] = {
                         (OutputDebugInfo(arg1), 0),
                         (OutputDebugInfo(arg2), 0),
                         (OutputDebugInfo(moreArgs), 0)...};

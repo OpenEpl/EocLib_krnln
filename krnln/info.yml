@@ -841,6 +841,13 @@ Cmd:
     - DataType: e::system::string
     - DataType: e::system::bin
       VarArgs: true
+  暂停:
+    CppName: EOC_DEBUGBREAK
+    Parameters: []
+  检查:
+    CppName: EOC_ASSERT
+    Parameters: 
+    - DataType: bool
 Type: {}
 Constant:
   标准输出设备:

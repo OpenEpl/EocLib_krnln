@@ -110,6 +110,8 @@ namespace e
                 {
                     return e::lib::krnln::FileUtils::WriteAllBytes(path, (first + ... + static_cast<e::system::bin>(args)));
                 }
+
+                bool DeleteData(intptr_t id, int32_t length);
             }
         }
     }

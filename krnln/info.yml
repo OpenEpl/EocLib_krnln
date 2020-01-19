@@ -787,6 +787,12 @@ Cmd:
     - DataType: intptr_t
     - DataType: "*"
       VarArgs: true
+  删除数据:
+    CppName: e::lib::krnln::FileUtils::DeleteData
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: intptr_t
+    - DataType: int32_t
   是否在文件尾:
     CppName: e::lib::krnln::FileUtils::IsEOF
     ReturnDataType: bool

@@ -24,6 +24,7 @@ namespace e
                 virtual void SetPosition(unsigned long long newPosition) override;
                 virtual void Flush() override;
                 virtual void Seek(long long offset, SeekOrigin whence) override;
+                virtual void SetLength(unsigned long long length) override;
                 static File Open(const e::system::string &filePath, FileAccessMode accessMode, FileShareMode shareMode);
             };
         }

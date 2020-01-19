@@ -175,3 +175,11 @@ e::lib::krnln::File e::lib::krnln::File::Open(const e::system::string &filePath,
         throw std::runtime_error("Unable to open file");
     return File(handle);
 }
+
+void e::lib::krnln::File::SetLength(unsigned long long length)
+{
+    auto rawPoint = GetPosition();
+    SetPosition(length);
+    SetEndOfFile((HANDLE)handle);
+    SetPosition(std::min(rawPoint, length));
+}

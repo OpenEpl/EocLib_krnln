@@ -69,6 +69,20 @@ void TestForFileObject(intptr_t id)
     xBin = nullptr;
     CHECK(FileUtils::ReadObject(id, xBin));
     CHECK(xBin == e::system::bin{'A', 'B', 'C'});
+
+    CHECK(FileUtils::WriteData(id, e::system::bin{'A', 'B', 'C'}));
+    FileUtils::Seek(id, static_cast<int32_t>(SeekOrigin::Current), -2);
+    CHECK(FileUtils::DeleteData(id, 1));
+    FileUtils::Seek(id, static_cast<int32_t>(SeekOrigin::Current), -1);
+    CHECK(FileUtils::ReadData(id, 2) == e::system::bin{'A', 'C'});
+
+    postion = FileUtils::GetPosition(id);
+    xBin = BinUtils::Repeat(8888, e::system::bin{'A', 'B', 'C'});
+    CHECK(FileUtils::WriteData(id, xBin));
+    FileUtils::Seek(id, static_cast<int32_t>(SeekOrigin::Begin), postion);
+    CHECK(FileUtils::DeleteData(id, static_cast<int32_t>(xBin.GetSize())));
+    CHECK(FileUtils::GetPosition(id) == postion);
+    CHECK(FileUtils::GetLength(id) == postion);
 }
 
 TEST_CASE("Basic I/O Test for Memory File", "[FileUtils]")

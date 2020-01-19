@@ -206,3 +206,26 @@ void e::lib::krnln::BaseFile::WriteLine(const e::system::string &x)
     Write(x.c_str(), x.len());
     Write("\r\n", 2);
 }
+
+void e::lib::krnln::BaseFile::Delete(unsigned long long length)
+{
+    auto rawLength = this->GetLength();
+    auto targetLength = rawLength - length;
+    if (this->GetPosition() >= targetLength)
+    {
+        SetLength(targetLength);
+        return;
+    }
+    auto rawPoint = GetPosition();
+    const constexpr size_t bufferSize = 8192;
+    auto buffer = std::make_unique<uint8_t[]>(bufferSize);
+    while (this->GetPosition() < targetLength)
+    {
+        Seek(length, SeekOrigin::Current);
+        auto numOfRead = Read(buffer.get(), bufferSize);
+        Seek(-length - numOfRead, SeekOrigin::Current);
+        Write(buffer.get(), numOfRead);
+    }
+    SetLength(targetLength);
+    SetPosition(rawPoint);
+}

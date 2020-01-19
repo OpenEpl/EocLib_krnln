@@ -246,7 +246,7 @@ bool e::lib::krnln::FileUtils::WriteAllBytes(const e::system::string &path, cons
     auto handle = CreateFileW(pathW.get(), GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
     if (handle == 0 || handle == INVALID_HANDLE_VALUE)
         return false;
-    
+
     auto buffer = x.GetElemPtr();
     auto length = x.GetSize();
     while (length)
@@ -265,4 +265,18 @@ bool e::lib::krnln::FileUtils::WriteAllBytes(const e::system::string &path, cons
 cleanup:
     CloseHandle(handle);
     return success;
+}
+
+bool e::lib::krnln::FileUtils::DeleteData(intptr_t id, int32_t length)
+{
+    try
+    {
+        auto object = reinterpret_cast<BaseFile *>(id);
+        object->Delete(length);
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
 }

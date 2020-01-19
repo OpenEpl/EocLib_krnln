@@ -21,6 +21,7 @@ namespace e
                 virtual unsigned long long GetLength() override;
                 virtual unsigned long long GetPosition() override;
                 virtual void SetPosition(unsigned long long newPosition) override;
+                virtual void SetLength(unsigned long long length) override;
             };
         }
     }

@@ -30,3 +30,7 @@ void e::lib::krnln::MemoryFile::SetPosition(unsigned long long newPosition)
         data.resize((size_t)newPosition);
     position = (size_t)newPosition;
 }
+void e::lib::krnln::MemoryFile::SetLength(unsigned long long length)
+{
+    data.resize(length);
+}

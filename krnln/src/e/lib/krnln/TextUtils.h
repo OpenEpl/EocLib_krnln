@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <functional>
 #include <e/system/basic_type.h>
 namespace e
 {

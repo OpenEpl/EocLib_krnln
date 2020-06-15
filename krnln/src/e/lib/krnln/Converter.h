@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <e/system/basic_type.h>
+#include <e/system/func.h>
 namespace e
 {
 	namespace lib
@@ -49,7 +50,7 @@ namespace e
 			}
 			inline int64_t ToInt64(bool value)
 			{
-				return value ? 1i64 : 0i64;
+				return value ? INT64_C(1) : INT64_C(0);
 			}
 			inline int64_t ToInt64(const e::system::string &value)
 			{

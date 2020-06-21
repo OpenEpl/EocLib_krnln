@@ -223,7 +223,7 @@ void e::lib::krnln::BaseFile::Delete(unsigned long long length)
     {
         Seek(length, SeekOrigin::Current);
         auto numOfRead = Read(buffer.get(), bufferSize);
-        Seek(-length - numOfRead, SeekOrigin::Current);
+        Seek(-(long long)(length + numOfRead), SeekOrigin::Current);
         Write(buffer.get(), numOfRead);
     }
     SetLength(targetLength);

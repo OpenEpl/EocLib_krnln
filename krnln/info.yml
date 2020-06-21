@@ -652,7 +652,7 @@ Cmd:
     ReturnDataType: bool
     Parameters: []
   输出调试文本:
-    CppName: EOC_OUTPUT_DEBUG_INFO
+    CppName: EOC_DEBUG_OUTPUT_INFO
     Parameters:
     - DataType: "*"
       VarArgs: true

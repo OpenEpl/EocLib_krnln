@@ -13,9 +13,9 @@ add_library(EocKrnln ${EocKrnln_DIR_SRCS_MAIN_MOUDLED} ${EocKrnln_DIR_SRCS_FILE_
 set_property(TARGET EocKrnln PROPERTY CXX_STANDARD 17)
 set_property(TARGET EocKrnln PROPERTY CXX_STANDARD_REQUIRED ON)
 
-include(${EOC_LIBS_DIRS}/system/config.cmake)
-target_include_directories(EocKrnln PRIVATE ${EocSystem_INCLUDE_DIRS})
-target_link_libraries(EocKrnln Shlwapi.lib Rpcrt4.lib ${EocSystem_LIBRARIES})
+target_link_eoc_lib(EocKrnln system EocSystem)
+target_include_directories(EocKrnln PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
+target_link_libraries(EocKrnln Shlwapi.lib Rpcrt4.lib)
 
 if(EocKrnln_BUILD_TESTS)
 	enable_testing()

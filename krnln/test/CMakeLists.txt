@@ -4,13 +4,6 @@ aux_source_directory(. EocKrnln_DIR_TESTS)
 add_executable(EocKrnln_Test ${EocKrnln_DIR_TESTS})
 set_property(TARGET EocKrnln_Test PROPERTY CXX_STANDARD 17)
 set_property(TARGET EocKrnln_Test PROPERTY CXX_STANDARD_REQUIRED ON)
-
-# Link EocSystem
-include(${EOC_LIBS_DIRS}/system/config.cmake)
-target_include_directories(EocKrnln_Test PRIVATE ${EocSystem_INCLUDE_DIRS})
-target_link_libraries(EocKrnln_Test ${EocSystem_LIBRARIES})
-
-target_include_directories(EocKrnln_Test PRIVATE ../src)
 target_link_libraries(EocKrnln_Test EocKrnln Catch2::Catch2)
 include(CTest)
 include(Catch)

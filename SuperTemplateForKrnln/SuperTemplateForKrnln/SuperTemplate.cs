@@ -1,6 +1,5 @@
 ﻿using QIQI.EplOnCpp.Core;
 using QIQI.EplOnCpp.Core.Expressions;
-using QIQI.EProjectFile;
 using System;
 using System.IO;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace e.lib.krnln
             if (expr.ParamList.Count == 1 && expr.ParamList[0] != null)
             {
                 writer.Write("return ");
-                expr.ParamList[0].WriteTo(writer);
+                expr.ParamList[0].WriteToWithCast(writer, C.Info.ReturnDataType);
             }
             else
             {
@@ -58,11 +57,11 @@ namespace e.lib.krnln
             }
             byte[] shellCode;
             object value;
-            if (expr.ParamList[0].TryGetConstValueWithCast(ProjectConverter.CppTypeName_Bin, out value))
+            if (expr.ParamList[0].TryGetConstValueWithCast(EocDataTypes.Bin, out value))
             {
                 shellCode = ((object[])value).Cast<byte>().ToArray();
             }
-            else if (expr.ParamList[0].TryGetConstValueWithCast(ProjectConverter.CppTypeName_String, out value))
+            else if (expr.ParamList[0].TryGetConstValueWithCast(EocDataTypes.String, out value))
             {
                 shellCode = File.ReadAllBytes((string)value);
             }
@@ -84,12 +83,11 @@ namespace e.lib.krnln
         public static void IsNullParameterCmd(CodeConverter C, CodeWriter writer, EocCallExpression expr)
         {
             if (expr.ParamList[0] is EocVariableExpression x
-                && x.VariableInfo is MethodParameterInfo paramInfo
-                && paramInfo.OptionalParameter)
+                && x.VariableInfo is EocParameterInfo paramInfo
+                && paramInfo.Optional)
             {
-                var name = C.P.GetUserDefinedName_SimpleCppName(x.VariableInfo.Id);
                 writer.Write("eoc_isNull_");
-                writer.Write(name);
+                writer.Write(paramInfo.CppName);
             }
             else
             {
@@ -122,7 +120,7 @@ namespace e.lib.krnln
             writer.Write("(");
             expr.ParamList[0].WriteTo(writer);
             writer.Write(" << ");
-            expr.ParamList[1].WriteToWithCast(writer, ProjectConverter.CppTypeName_Int);
+            expr.ParamList[1].WriteToWithCast(writer, EocDataTypes.Int);
             writer.Write(")");
         }
 
@@ -133,7 +131,7 @@ namespace e.lib.krnln
             writer.Write("(");
             expr.ParamList[0].WriteTo(writer);
             writer.Write(" >> ");
-            expr.ParamList[1].WriteToWithCast(writer, ProjectConverter.CppTypeName_Int);
+            expr.ParamList[1].WriteToWithCast(writer, EocDataTypes.Int);
             writer.Write(")");
         }
 
@@ -170,9 +168,9 @@ namespace e.lib.krnln
         public static CppTypeName GetOperatingTypeForDiv(CodeConverter C, EocCallExpression expr)
         {
             var r = GetOperatingType(C, expr);
-            if (C.P.IsIntNumberType(r))
+            if (EocDataTypes.IsIntNumberType(r))
             {
-                return ProjectConverter.CppTypeName_Double;
+                return EocDataTypes.Double;
             }
             return r;
         }
@@ -192,49 +190,49 @@ namespace e.lib.krnln
                 var itemType = item.GetResultType();
                 if (resultType == null)
                     resultType = itemType;
-                if (itemType == ProjectConverter.CppTypeName_String
-                    || itemType == ProjectConverter.CppTypeName_DateTime
-                    || itemType == ProjectConverter.CppTypeName_Bin
-                    || itemType == ProjectConverter.CppTypeName_Double)
+                if (itemType == EocDataTypes.String
+                    || itemType == EocDataTypes.DateTime
+                    || itemType == EocDataTypes.Bin
+                    || itemType == EocDataTypes.Double)
                 {
                     resultType = itemType;
                     break;
                 }
-                if (itemType == ProjectConverter.CppTypeName_Any || itemType == ProjectConverter.CppTypeName_SkipCheck)
+                if (itemType == EocDataTypes.Any || itemType == EocDataTypes.Auto)
                 {
-                    if (resultType != ProjectConverter.CppTypeName_Any)
+                    if (resultType != EocDataTypes.Any)
                         resultType = itemType;
                 }
-                else if (itemType == ProjectConverter.CppTypeName_IntPtr)
+                else if (itemType == EocDataTypes.IntPtr)
                 {
-                    if (P.IsIntNumberType(resultType))
+                    if (EocDataTypes.IsIntNumberType(resultType))
                     {
-                        if (P.GetIntNumberTypeSize(resultType) <= P.GetIntNumberTypeSize(ProjectConverter.CppTypeName_Int))
-                            resultType = ProjectConverter.CppTypeName_IntPtr;
+                        if (EocDataTypes.GetIntNumberTypeSize(resultType) <= EocDataTypes.GetIntNumberTypeSize(EocDataTypes.Int))
+                            resultType = EocDataTypes.IntPtr;
                         else
-                            resultType = ProjectConverter.CppTypeName_Long;
+                            resultType = EocDataTypes.Long;
                     }
                 }
-                else if (P.IsIntNumberType(itemType))
+                else if (EocDataTypes.IsIntNumberType(itemType))
                 {
-                    if (resultType == ProjectConverter.CppTypeName_IntPtr)
+                    if (resultType == EocDataTypes.IntPtr)
                     {
-                        if (P.GetIntNumberTypeSize(itemType) > P.GetIntNumberTypeSize(ProjectConverter.CppTypeName_Int))
-                            resultType = ProjectConverter.CppTypeName_Long;
+                        if (EocDataTypes.GetIntNumberTypeSize(itemType) > EocDataTypes.GetIntNumberTypeSize(EocDataTypes.Int))
+                            resultType = EocDataTypes.Long;
                     }
-                    else if (P.IsIntNumberType(resultType))
+                    else if (EocDataTypes.IsIntNumberType(resultType))
                     {
-                        if (P.GetIntNumberTypeSize(resultType) < P.GetIntNumberTypeSize(itemType))
+                        if (EocDataTypes.GetIntNumberTypeSize(resultType) < EocDataTypes.GetIntNumberTypeSize(itemType))
                             resultType = itemType;
                     }
                 }
-                else if (P.IsFloatNumberType(itemType))
+                else if (EocDataTypes.IsFloatNumberType(itemType))
                 {
-                    if (P.IsIntNumberType(resultType) || resultType == ProjectConverter.CppTypeName_IntPtr)
+                    if (EocDataTypes.IsIntNumberType(resultType) || resultType == EocDataTypes.IntPtr)
                         resultType = itemType;
-                    else if (P.IsFloatNumberType(resultType))
+                    else if (EocDataTypes.IsFloatNumberType(resultType))
                     {
-                        if (P.GetFloatNumberTypeSize(resultType) < P.GetFloatNumberTypeSize(itemType))
+                        if (EocDataTypes.GetFloatNumberTypeSize(resultType) < EocDataTypes.GetFloatNumberTypeSize(itemType))
                             resultType = itemType;
                     }
                 }

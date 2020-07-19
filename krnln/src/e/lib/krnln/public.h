@@ -17,6 +17,7 @@
 #include "MathUtils.h"
 #include "file/FileUtils.h"
 #include "EnvironmentInfo.h"
+#include "com/COMObject.h"
 namespace e
 {
     namespace lib

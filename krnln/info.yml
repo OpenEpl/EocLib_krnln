@@ -854,7 +854,25 @@ Cmd:
     CppName: EOC_ASSERT
     Parameters: 
     - DataType: bool
-Type: {}
+Type:
+  对象:
+    CppName: e::lib::krnln::COMObject
+    Method:
+      清除:
+        CppName: Clear
+        Parameters: []
+        AccessOperator: "."
+      是否为空:
+        CppName: IsNull
+        ReturnDataType: bool
+        Parameters: []
+        AccessOperator: "."
+      是否相等:
+        CppName: ReferenceEquals
+        ReturnDataType: bool
+        Parameters:
+        - DataType: e::lib::krnln::COMObject
+        AccessOperator: "."
 Constant:
   标准输出设备:
     CppName: e::lib::krnln::constant::StdOut

@@ -3,17 +3,19 @@
 #include <e/system/func.h>
 namespace e::lib::krnln
 {
-    struct COMObject
+    struct COMObjectImpl;
+    typedef e::system::struct_ptr<COMObjectImpl> COMObject;
+    struct COMObjectImpl
     {
     public:
-        COMObject() noexcept;
-        COMObject(const COMObject &that) noexcept;
-        COMObject(std::nullptr_t) noexcept;
-        COMObject(COMObject &&that) noexcept;
-        ~COMObject() noexcept;
-        COMObject &operator=(const COMObject &that) noexcept;
-        COMObject &operator=(COMObject &&that) noexcept;
-        COMObject &operator=(std::nullptr_t) noexcept;
+        COMObjectImpl() noexcept;
+        COMObjectImpl(const COMObjectImpl &that) noexcept;
+        COMObjectImpl(std::nullptr_t) noexcept;
+        COMObjectImpl(COMObjectImpl &&that) noexcept;
+        ~COMObjectImpl() noexcept;
+        COMObjectImpl &operator=(const COMObjectImpl &that) noexcept;
+        COMObjectImpl &operator=(COMObjectImpl &&that) noexcept;
+        COMObjectImpl &operator=(std::nullptr_t) noexcept;
         void Clear() noexcept;
         bool IsNull() noexcept;
         bool ReferenceEquals(const COMObject &that) noexcept;

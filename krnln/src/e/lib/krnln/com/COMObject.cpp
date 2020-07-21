@@ -2,10 +2,10 @@
 #include <unknwn.h>
 namespace e::lib::krnln
 {
-    COMObject::COMObject() noexcept : COMObject(nullptr)
+    COMObjectImpl::COMObjectImpl() noexcept : COMObjectImpl(nullptr)
     {
     }
-    COMObject::COMObject(const COMObject &that) noexcept
+    COMObjectImpl::COMObjectImpl(const COMObjectImpl &that) noexcept
     {
         this->data = that.data;
         if (this->data)
@@ -14,17 +14,17 @@ namespace e::lib::krnln
             obj->AddRef();
         }
     }
-    COMObject::COMObject(std::nullptr_t) noexcept : data(nullptr)
+    COMObjectImpl::COMObjectImpl(std::nullptr_t) noexcept : data(nullptr)
     {
     }
-    COMObject::COMObject(COMObject &&that) noexcept
+    COMObjectImpl::COMObjectImpl(COMObjectImpl &&that) noexcept
     {
         this->data = that.data;
         that.data = nullptr;
     }
-    COMObject &COMObject::operator=(const COMObject &that) noexcept
+    COMObjectImpl &COMObjectImpl::operator=(const COMObjectImpl &that) noexcept
     {
-        this->~COMObject();
+        this->~COMObjectImpl();
         this->data = that.data;
         if (this->data)
         {
@@ -33,20 +33,20 @@ namespace e::lib::krnln
         }
         return *this;
     }
-    COMObject &COMObject::operator=(COMObject &&that) noexcept
+    COMObjectImpl &COMObjectImpl::operator=(COMObjectImpl &&that) noexcept
     {
-        this->~COMObject();
+        this->~COMObjectImpl();
         this->data = that.data;
         that.data = nullptr;
         return *this;
     }
-    COMObject &COMObject::operator=(std::nullptr_t) noexcept
+    COMObjectImpl &COMObjectImpl::operator=(std::nullptr_t) noexcept
     {
-        this->~COMObject();
+        this->~COMObjectImpl();
         this->data = nullptr;
         return *this;
     }
-    COMObject::~COMObject() noexcept
+    COMObjectImpl::~COMObjectImpl() noexcept
     {
         if (this->data)
         {
@@ -54,16 +54,16 @@ namespace e::lib::krnln
             obj->Release();
         }
     }
-    void COMObject::Clear() noexcept
+    void COMObjectImpl::Clear() noexcept
     {
         *this = nullptr;
     }
-    bool COMObject::IsNull() noexcept
+    bool COMObjectImpl::IsNull() noexcept
     {
         return this->data == nullptr;
     }
-    bool COMObject::ReferenceEquals(const COMObject &that) noexcept
+    bool COMObjectImpl::ReferenceEquals(const COMObject &that) noexcept
     {
-        return this->data == that.data;
+        return this->data == that->data;
     }
 }

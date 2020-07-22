@@ -3,8 +3,8 @@
 using namespace e::lib::krnln;
 TEST_CASE("DateTimeUtils::BuildDateTime", "[DateTimeUtils]")
 {
-    REQUIRE(DateTimeUtils::BuildDateTime(2019) == 43466.0);
-    REQUIRE(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7).value == 43830.21258101852);
+    REQUIRE(DateTimeUtils::BuildDateTime(2019) == e::system::datetime(43466.0));
+    REQUIRE(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7) == e::system::datetime(43830.21258101852));
 }
 
 TEST_CASE("DateTimeUtils::DateTimeToString", "[DateTimeUtils]")

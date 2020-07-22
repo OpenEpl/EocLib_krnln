@@ -854,6 +854,14 @@ Cmd:
     CppName: EOC_ASSERT
     Parameters: 
     - DataType: bool
+  写到内存:
+    CppName: e::lib::krnln::MemoryUtils::WriteMemory
+    ReturnDataType: bool
+    Parameters: 
+    - DataType: "*"
+    - DataType: intptr_t
+    - DataType: intptr_t
+      Optional: true
 Type:
   对象:
     CppName: e::lib::krnln::COMObject

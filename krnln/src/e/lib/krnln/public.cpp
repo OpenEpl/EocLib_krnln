@@ -34,96 +34,99 @@ e::system::any e::lib::krnln::GetDataFromBin(const e::system::bin& from, int32_t
 	case constant::UInt8Type:
 		if (realPos > 0 && realPos + sizeof(uint8_t) - 1 <= size)
 		{
-			result = *reinterpret_cast<uint8_t*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<uint8_t*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = uint8_t(0);
+			result = e::system::any(uint8_t(0));
 		}
 		realPos += sizeof(uint8_t);
 		break;
 	case constant::Int16Type:
 		if (realPos > 0 && realPos + sizeof(int16_t) - 1 <= size)
 		{
-			result = *reinterpret_cast<int16_t*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<int16_t*>(&from.At(realPos)));
 		}
-		result = int16_t(0);
+		else
+		{
+			result = e::system::any(int16_t(0));
+		}
 		realPos += sizeof(int16_t);
 		break;
 	case constant::Int32Type:
 		if (realPos > 0 && realPos + sizeof(int32_t) - 1 <= size)
 		{
-			result = *reinterpret_cast<int32_t*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<int32_t*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = int32_t(0);
+			result = e::system::any(int32_t(0));
 		}
 		realPos += sizeof(int32_t);
 		break;
 	case constant::Int64Type:
 		if (realPos > 0 && realPos + sizeof(int64_t) - 1 <= size)
 		{
-			result = *reinterpret_cast<int64_t*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<int64_t*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = int64_t(0);
+			result = e::system::any(int64_t(0));
 		}
 		realPos += sizeof(int64_t);
 		break;
 	case constant::FloatType:
 		if (realPos > 0 && realPos + sizeof(float) - 1 <= size)
 		{
-			result = *reinterpret_cast<float*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<float*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = float(0);
+			result = e::system::any(float(0));
 		}
 		realPos += sizeof(float);
 		break;
 	case constant::DoubleType:
 		if (realPos > 0 && realPos + sizeof(double) - 1 <= size)
 		{
-			result = *reinterpret_cast<double*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<double*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = double(0);
+			result = e::system::any(double(0));
 		}
 		realPos += sizeof(double);
 		break;
 	case constant::BoolType:
 		if (realPos > 0 && realPos + sizeof(int32_t) - 1 <= size)
 		{
-			result = *reinterpret_cast<int32_t*>(&from.At(realPos)) ? true : false;
+			result = e::system::any(*reinterpret_cast<int32_t*>(&from.At(realPos)) ? true : false);
 		}
 		else
 		{
-			result = false;
+			result = e::system::any(false);
 		}
 		realPos += sizeof(int32_t);
 		break;
 	case constant::DateTimeType:
 		if (realPos > 0 && realPos + sizeof(e::system::datetime) - 1 <= size)
 		{
-			result = *reinterpret_cast<e::system::datetime*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<e::system::datetime*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = e::system::datetime(0);
+			result = e::system::any(e::system::datetime(0));
 		}
 		realPos += sizeof(e::system::datetime);
 		break;
 	case constant::MethodPtrType:
 		if (realPos > 0 && realPos + sizeof(e::system::methodptr) - 1 <= size)
 		{
-			result = *reinterpret_cast<e::system::methodptr*>(&from.At(realPos));
+			result = e::system::any(*reinterpret_cast<e::system::methodptr*>(&from.At(realPos)));
 		}
 		else
 		{
-			result = e::system::methodptr(0);
+			result = e::system::any(e::system::methodptr(0));
 		}
 		realPos += sizeof(e::system::methodptr);
 		break;
@@ -139,7 +142,7 @@ e::system::any e::lib::krnln::GetDataFromBin(const e::system::bin& from, int32_t
 				e::system::string tempStrResult(strSize);
 				std::memcpy(tempStrResult.c_str(), startPtr, strSize);
 				tempStrResult.c_str()[strSize] = '\0';
-				result = tempStrResult;
+				result = e::system::any(tempStrResult);
 			}
 			else
 			{
@@ -147,14 +150,13 @@ e::system::any e::lib::krnln::GetDataFromBin(const e::system::bin& from, int32_t
 				realPos += (int)strSize;
 				e::system::string tempStrResult(strSize);
 				std::memcpy(tempStrResult.c_str(), startPtr, strSize);
-				result = tempStrResult;
+				result = e::system::any(tempStrResult);
 			}
 		}
 		else
 		{
-			result = e::system::string();
+			result = e::system::any(e::system::string());
 		}
-		realPos += sizeof(e::system::methodptr);
 		break;
 	default:
 		break;

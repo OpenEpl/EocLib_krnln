@@ -10,3 +10,25 @@ TEST_CASE("krnln::ToString", "[Converter]")
     CHECK(krnln::ToString(e::system::array<int32_t>{t}) == "RIFF");
     CHECK(krnln::ToString(e::system::array<float>{*reinterpret_cast<float *>(&t)}) == "RIFF");
 }
+
+TEST_CASE("krnln::ToInt32(e::system::string)", "[Converter]")
+{
+    CHECK(krnln::ToInt32(EOC_STR_CONST("123")) == 123);
+    CHECK(krnln::ToInt32(EOC_STR_CONST("-123")) == -123);
+
+    CHECK(krnln::ToInt32(EOC_STR_CONST("0")) == 0);
+    CHECK(krnln::ToInt32(EOC_STR_CONST("2147483647")) == 2147483647);
+    CHECK(krnln::ToInt32(EOC_STR_CONST("-2147483648")) == -(int32_t)2147483648);
+
+    //Wrap-Around Mode
+    CHECK(krnln::ToInt32(EOC_STR_CONST("68719476735")) == -1);
+    CHECK(krnln::ToInt32(EOC_STR_CONST("66571993087")) == 2147483647);
+}
+
+TEST_CASE("krnln::ToUInt8(e::system::string)", "[Converter]")
+{
+    CHECK(krnln::ToUInt8(EOC_STR_CONST("123")) == 123);
+
+    //Wrap-Around Mode
+    CHECK(krnln::ToUInt8(EOC_STR_CONST("-123")) == 133);
+}

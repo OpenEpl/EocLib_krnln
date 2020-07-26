@@ -1,14 +1,57 @@
 ﻿#pragma once
 #include <e/system/basic_type.h>
 #include <e/system/func.h>
+#include <limits>
 namespace e
 {
 	namespace lib
 	{
 		namespace krnln
 		{
+			template <typename T, std::enable_if_t<std::is_integral_v<T>, int> = 0>
+			T StrToInteger(const char *value)
+			{
+				const char *s = value;
+				T acc = 0;
+				bool neg = false;
+				if (s == nullptr)
+				{
+					return 0;
+				}
+				while (isspace((int)*s))
+				{
+					s++;
+				}
+				if (*s == '-')
+				{
+					neg = true;
+					s++;
+				}
+				else if (*s == '+')
+				{
+					s++;
+				}
+				while (isdigit((int)*s))
+				{
+					acc = 10 * acc + static_cast<T>(*s - '0');
+					s++;
+				}
+				if (neg)
+				{
+					acc = ~acc + static_cast<T>(1);
+				}
+				return acc;
+			}
+
+			template <typename T>
+			T StrToInteger(const e::system::string &value)
+			{
+				return StrToInteger<T>(value.c_str());
+			}
+
 			int32_t ToInt32(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline int32_t ToInt32(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline int32_t ToInt32(T value)
 			{
 				return static_cast<int32_t>(value);
 			}
@@ -18,7 +61,7 @@ namespace e
 			}
 			inline int32_t ToInt32(const e::system::string &value)
 			{
-				return atoi(value.c_str());
+				return StrToInteger<int32_t>(value);
 			}
 			inline int32_t ToInt32(e::system::methodptr value)
 			{
@@ -26,7 +69,8 @@ namespace e
 			}
 
 			int16_t ToInt16(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline int16_t ToInt16(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline int16_t ToInt16(T value)
 			{
 				return static_cast<int16_t>(value);
 			}
@@ -36,7 +80,7 @@ namespace e
 			}
 			inline int16_t ToInt16(const e::system::string &value)
 			{
-				return static_cast<int16_t>(atoi(value.c_str()));
+				return StrToInteger<int16_t>(value);
 			}
 			inline int16_t ToInt16(e::system::methodptr value)
 			{
@@ -44,7 +88,8 @@ namespace e
 			}
 
 			int64_t ToInt64(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline int64_t ToInt64(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline int64_t ToInt64(T value)
 			{
 				return static_cast<int64_t>(value);
 			}
@@ -54,7 +99,7 @@ namespace e
 			}
 			inline int64_t ToInt64(const e::system::string &value)
 			{
-				return atoll(value.c_str());
+				return StrToInteger<int64_t>(value);
 			}
 			inline int64_t ToInt64(e::system::methodptr value)
 			{
@@ -62,7 +107,8 @@ namespace e
 			}
 
 			intptr_t ToIntPtr(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline intptr_t ToIntPtr(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline intptr_t ToIntPtr(T value)
 			{
 				return static_cast<intptr_t>(value);
 			}
@@ -80,7 +126,8 @@ namespace e
 			}
 
 			uint8_t ToUInt8(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline uint8_t ToUInt8(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline uint8_t ToUInt8(T value)
 			{
 				return static_cast<uint8_t>(value);
 			}
@@ -90,7 +137,8 @@ namespace e
 			}
 			inline uint8_t ToUInt8(const e::system::string &value)
 			{
-				return static_cast<uint8_t>(atoi(value.c_str()));
+				return StrToInteger<uint8_t>(value);
+				;
 			}
 			inline uint8_t ToUInt8(e::system::methodptr value)
 			{
@@ -98,7 +146,8 @@ namespace e
 			}
 
 			double ToDouble(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline double ToDouble(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline double ToDouble(T value)
 			{
 				return static_cast<double>(value);
 			}
@@ -116,7 +165,8 @@ namespace e
 			}
 
 			float ToFloat(const e::system::any &value);
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline float ToFloat(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline float ToFloat(T value)
 			{
 				return static_cast<float>(value);
 			}
@@ -132,12 +182,13 @@ namespace e
 			{
 				return static_cast<float>(reinterpret_cast<intptr_t>(value));
 			}
-			template<class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0> inline e::system::bin ToBin(T value)
+			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+			inline e::system::bin ToBin(T value)
 			{
 				return e::system::make_bin(&value, sizeof(value));
 			}
 			e::system::bin ToBin(const e::system::any &value);
-			e::system::bin ToBin(const e::system::bin& value);
+			e::system::bin ToBin(const e::system::bin &value);
 			e::system::bin ToBin(bool value);
 			e::system::bin ToBin(e::system::datetime value);
 			e::system::bin ToBin(const e::system::string &value);

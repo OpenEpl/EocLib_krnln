@@ -3,7 +3,13 @@
 using namespace e::lib;
 TEST_CASE("krnln::ToString", "[Converter]")
 {
-    CHECK(krnln::ToString(123) == "123");
+    CHECK(krnln::ToString(UINT8_C(123)) == "123");
+    CHECK(krnln::ToString(INT16_C(123)) == "123");
+    CHECK(krnln::ToString(INT16_C(-123)) == "-123");
+    CHECK(krnln::ToString(INT32_C(123)) == "123");
+    CHECK(krnln::ToString(INT32_C(-123)) == "-123");
+    CHECK(krnln::ToString(INT64_C(123456789123456)) == "123456789123456");
+    CHECK(krnln::ToString(INT64_C(-123456789123456)) == "-123456789123456");
     CHECK(krnln::ToString(e::system::bin{0x52, 0x49, 0x46, 0x46}) == "RIFF");
     CHECK(krnln::ToString(e::system::array<uint8_t>{0x52, 0x49, 0x46, 0x46}) == "RIFF");
     int32_t t = 0x46464952;

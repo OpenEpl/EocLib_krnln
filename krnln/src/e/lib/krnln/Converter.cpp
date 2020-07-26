@@ -4,6 +4,7 @@
 #include "DateTimeUtils.h"
 #include <e/system/func.h>
 #include <string>
+#include <itoa/branchlut2.h>
 
 int32_t e::lib::krnln::ToInt32(const e::system::any &value)
 {
@@ -362,13 +363,6 @@ e::system::bin e::lib::krnln::ToBin(e::system::methodptr value)
     return e::system::make_bin(&value, sizeof(value));
 }
 
-e::system::string e::lib::krnln::ToString(uint8_t value)
-{
-    e::system::string result(3);
-    _itoa(value, result.data, 10);
-    return result;
-}
-
 e::system::string e::lib::krnln::ToString(const e::system::any &value)
 {
     if (value.type() == typeid(uint8_t))
@@ -434,24 +428,31 @@ e::system::string e::lib::krnln::ToString(const e::system::any &value)
     return nullptr;
 }
 
+e::system::string e::lib::krnln::ToString(uint8_t value)
+{
+    e::system::string result(3);
+    u8toa_branchlut2(value, result.data);
+    return result;
+}
+
 e::system::string e::lib::krnln::ToString(int16_t value)
 {
     e::system::string result(6);
-    _itoa(value, result.data, 10);
+    i16toa_branchlut2(value, result.data);
     return result;
 }
 
 e::system::string e::lib::krnln::ToString(int32_t value)
 {
     e::system::string result(11);
-    _itoa(value, result.data, 10);
+    i32toa_branchlut2(value, result.data);
     return result;
 }
 
 e::system::string e::lib::krnln::ToString(int64_t value)
 {
     e::system::string result(20);
-    _i64toa(value, result.data, 10);
+    i64toa_branchlut2(value, result.data);
     return result;
 }
 
@@ -469,7 +470,7 @@ e::system::string e::lib::krnln::ToString(double value)
 
 e::system::string e::lib::krnln::ToString(bool value)
 {
-    return value ? e::system::string("真") : e::system::string("假");
+    return value ? EOC_STR_CONST("真") : EOC_STR_CONST("假");
 }
 
 e::system::string e::lib::krnln::ToString(e::system::datetime value)

@@ -7,10 +7,11 @@ include(${EOC_HOME}/EocBuildHelper.cmake)
 
 project(EocKrnln)
 option(EocKrnln_BUILD_TESTS "Build tests for EocKrnln." OFF)
+aux_source_directory(${EocKrnln_SOURCE_DIR}/src/itoa EocKrnln_DIR_SRCS_ITOA_MOUDLED)
 aux_source_directory(${EocKrnln_SOURCE_DIR}/src/e/lib/krnln EocKrnln_DIR_SRCS_MAIN_MOUDLED)
 aux_source_directory(${EocKrnln_SOURCE_DIR}/src/e/lib/krnln/file EocKrnln_DIR_SRCS_FILE_MODULE)
 aux_source_directory(${EocKrnln_SOURCE_DIR}/src/e/lib/krnln/com EocKrnln_DIR_SRCS_COM_MODULE)
-add_library(EocKrnln ${EocKrnln_DIR_SRCS_MAIN_MOUDLED} ${EocKrnln_DIR_SRCS_FILE_MODULE} ${EocKrnln_DIR_SRCS_COM_MODULE})
+add_library(EocKrnln ${EocKrnln_DIR_SRCS_ITOA_MOUDLED} ${EocKrnln_DIR_SRCS_MAIN_MOUDLED} ${EocKrnln_DIR_SRCS_FILE_MODULE} ${EocKrnln_DIR_SRCS_COM_MODULE})
 set_property(TARGET EocKrnln PROPERTY CXX_STANDARD 17)
 set_property(TARGET EocKrnln PROPERTY CXX_STANDARD_REQUIRED ON)
 

@@ -32,5 +32,7 @@ void e::lib::krnln::MemoryFile::SetPosition(unsigned long long newPosition)
 }
 void e::lib::krnln::MemoryFile::SetLength(unsigned long long length)
 {
-    data.resize(length);
+    if (length > std::numeric_limits<size_t>::max())
+        throw std::invalid_argument("new length is too large");
+    data.resize((size_t)length);
 }

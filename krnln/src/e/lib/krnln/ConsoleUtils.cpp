@@ -74,7 +74,7 @@ namespace e::lib::krnln::ConsoleUtils
                     break;
                 }
             }
-            int ocpLen = (start - contentCP.get()) + 1;
+            int ocpLen = static_cast<int>((start - contentCP.get()) + 1);
             auto cp = GetConsoleCP();
             auto wideLen = MultiByteToWideChar(cp, 0, contentCP.get(), ocpLen, nullptr, 0);
             auto contentW = std::make_unique<wchar_t[]>(wideLen);

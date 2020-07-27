@@ -65,7 +65,7 @@ namespace e
 			}
 			inline int32_t ToInt32(e::system::methodptr value)
 			{
-				return static_cast<int32_t>(reinterpret_cast<intptr_t>(value));
+				return static_cast<int32_t>(static_cast<intptr_t>(value));
 			}
 
 			int16_t ToInt16(const e::system::any &value);
@@ -84,7 +84,7 @@ namespace e
 			}
 			inline int16_t ToInt16(e::system::methodptr value)
 			{
-				return static_cast<int16_t>(reinterpret_cast<intptr_t>(value));
+				return static_cast<int16_t>(static_cast<intptr_t>(value));
 			}
 
 			int64_t ToInt64(const e::system::any &value);
@@ -103,7 +103,7 @@ namespace e
 			}
 			inline int64_t ToInt64(e::system::methodptr value)
 			{
-				return static_cast<int64_t>(reinterpret_cast<intptr_t>(value));
+				return static_cast<int64_t>(static_cast<intptr_t>(value));
 			}
 
 			intptr_t ToIntPtr(const e::system::any &value);
@@ -122,7 +122,7 @@ namespace e
 			}
 			inline intptr_t ToIntPtr(e::system::methodptr value)
 			{
-				return reinterpret_cast<intptr_t>(value);
+				return static_cast<intptr_t>(value);
 			}
 
 			uint8_t ToUInt8(const e::system::any &value);
@@ -142,7 +142,7 @@ namespace e
 			}
 			inline uint8_t ToUInt8(e::system::methodptr value)
 			{
-				return static_cast<uint8_t>(reinterpret_cast<intptr_t>(value));
+				return static_cast<uint8_t>(static_cast<intptr_t>(value));
 			}
 
 			double ToDouble(const e::system::any &value);
@@ -161,7 +161,7 @@ namespace e
 			}
 			inline double ToDouble(e::system::methodptr value)
 			{
-				return static_cast<double>(reinterpret_cast<intptr_t>(value));
+				return static_cast<double>(static_cast<intptr_t>(value));
 			}
 
 			float ToFloat(const e::system::any &value);
@@ -180,7 +180,7 @@ namespace e
 			}
 			inline float ToFloat(e::system::methodptr value)
 			{
-				return static_cast<float>(reinterpret_cast<intptr_t>(value));
+				return static_cast<float>(static_cast<intptr_t>(value));
 			}
 			template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
 			inline e::system::bin ToBin(T value)

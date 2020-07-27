@@ -101,7 +101,7 @@ e::system::any e::lib::krnln::GetDataFromBin(const e::system::bin& from, int32_t
 		}
 		else
 		{
-			result = e::system::any(e::system::methodptr(0));
+			result = e::system::any(e::system::methodptr());
 		}
 		realPos += sizeof(e::system::methodptr);
 		break;

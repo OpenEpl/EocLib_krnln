@@ -1,29 +1,4 @@
 ﻿#include "public.h"
-#include <conio.h>
-e::system::string e::lib::krnln::Input(std::optional<bool> echo)
-{
-    e::system::string a(2048);
-    if (echo.value_or(true))
-    {
-        std::cin.getline(a.data, 2049);
-    }
-    else
-    {
-        int len = 0;
-        char c;
-        while ((c = _getch()) != '\r')
-        {
-            if (c == -1)
-                break;
-            if (c == '\0')
-                continue;
-            a.data[len++] = c;
-        }
-        a.data[len] = '\0';
-    }
-    return a;
-}
-
 e::system::any e::lib::krnln::GetDataFromBin(const e::system::bin& from, int32_t type, std::optional<std::reference_wrapper<int32_t>> pos)
 {
 	int realPos = pos.has_value() ? pos.value().get() : 1;

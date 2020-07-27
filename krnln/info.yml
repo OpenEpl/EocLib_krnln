@@ -242,14 +242,14 @@ Cmd:
     Parameters:
     - DataType: double
   标准输出:
-    CppName: e::lib::krnln::Print
+    CppName: e::lib::krnln::ConsoleUtils::Print
     Parameters:
     - DataType: int32_t
       Optional: true
     - DataType: "*"
       VarArgs: true
   标准输入:
-    CppName: e::lib::krnln::Input
+    CppName: e::lib::krnln::ConsoleUtils::Input
     ReturnDataType: e::system::string
     Parameters:
     - DataType: bool
@@ -880,10 +880,10 @@ Type:
         - DataType: e::lib::krnln::COMObject
 Constant:
   标准输出设备:
-    CppName: e::lib::krnln::constant::StdOut
+    CppName: e::lib::krnln::ConsoleUtils::constant::StdOut
     DataType: int32_t
   标准错误设备:
-    CppName: e::lib::krnln::constant::StdErr
+    CppName: e::lib::krnln::ConsoleUtils::constant::StdErr
     DataType: int32_t
   换行符:
     CppName: e::lib::krnln::constant::NewLine

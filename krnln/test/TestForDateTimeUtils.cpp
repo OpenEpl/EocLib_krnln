@@ -2,6 +2,8 @@
 #include <e/lib/krnln/DateTimeUtils.h>
 using namespace e::lib::krnln;
 inline const e::system::datetime D_20191231_050607(43830.21258101852);
+inline const e::system::datetime D_20200101_050607(43831.21258101852);
+inline const e::system::datetime D_20200102_050607(43832.21258101852);
 TEST_CASE("DateTimeUtils::BuildDateTime", "[DateTimeUtils]")
 {
     REQUIRE(DateTimeUtils::BuildDateTime(2019) == e::system::datetime(43466.0));
@@ -39,4 +41,11 @@ TEST_CASE("DateTimeUtils::GetMinutePart", "[DateTimeUtils]")
 TEST_CASE("DateTimeUtils::GetSecondPart", "[DateTimeUtils]")
 {
     REQUIRE(DateTimeUtils::GetSecondPart(D_20191231_050607) == 7);
+}
+
+TEST_CASE("DateTimeUtils::DayOfWeek", "[DateTimeUtils]")
+{
+    REQUIRE(DateTimeUtils::DayOfWeek(D_20191231_050607) == 3);
+    REQUIRE(DateTimeUtils::DayOfWeek(D_20200101_050607) == 4);
+    REQUIRE(DateTimeUtils::DayOfWeek(D_20200102_050607) == 5);
 }

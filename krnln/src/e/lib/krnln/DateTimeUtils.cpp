@@ -104,3 +104,8 @@ int32_t e::lib::krnln::DateTimeUtils::GetSecondPart(e::system::datetime value)
 {
     return GetTotalSecondsInTimePart(value) % 60;
 }
+
+int32_t e::lib::krnln::DateTimeUtils::DayOfWeek(e::system::datetime value)
+{
+    return (static_cast<int32_t>(std::fmod(value.value, 7)) + 6) % 7 + 1;
+}

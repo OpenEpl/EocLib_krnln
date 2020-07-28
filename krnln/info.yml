@@ -359,6 +359,11 @@ Cmd:
     ReturnDataType: int32_t
     Parameters:
     - DataType: e::system::datetime
+  取星期几:
+    CppName: e::lib::krnln::DateTimeUtils::DayOfWeek
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
   取启动时间:
     CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t

@@ -344,6 +344,21 @@ Cmd:
     CppName: e::lib::krnln::DateTimeUtils::Now
     ReturnDataType: e::system::datetime
     Parameters: []
+  取小时:
+    CppName: e::lib::krnln::DateTimeUtils::GetHourPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
+  取分钟:
+    CppName: e::lib::krnln::DateTimeUtils::GetMinutePart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
+  取秒:
+    CppName: e::lib::krnln::DateTimeUtils::GetSecondPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
   取启动时间:
     CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t

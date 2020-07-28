@@ -80,3 +80,27 @@ e::system::datetime e::lib::krnln::DateTimeUtils::BuildDateTime(int32_t year, st
     SystemTimeToVariantTime(&info, &result.value);
     return result;
 }
+
+inline int32_t GetTotalSecondsInTimePart(e::system::datetime value)
+{
+    constexpr int32_t totalSecondsPerDay = 24 * 60 * 60;
+    double dataPart;
+    double timePart = std::modf(value.value, &dataPart);
+    int32_t result = static_cast<int32_t>(std::round(totalSecondsPerDay * std::abs(timePart)));
+    return result;
+}
+
+int32_t e::lib::krnln::DateTimeUtils::GetHourPart(e::system::datetime value)
+{
+    return GetTotalSecondsInTimePart(value) / 3600;
+}
+
+int32_t e::lib::krnln::DateTimeUtils::GetMinutePart(e::system::datetime value)
+{
+    return (GetTotalSecondsInTimePart(value) / 60) % 60;
+}
+
+int32_t e::lib::krnln::DateTimeUtils::GetSecondPart(e::system::datetime value)
+{
+    return GetTotalSecondsInTimePart(value) % 60;
+}

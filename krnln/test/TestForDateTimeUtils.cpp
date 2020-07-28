@@ -1,10 +1,11 @@
 ﻿#include <catch2/catch.hpp>
 #include <e/lib/krnln/DateTimeUtils.h>
 using namespace e::lib::krnln;
+inline const e::system::datetime D_20191231_050607(43830.21258101852);
 TEST_CASE("DateTimeUtils::BuildDateTime", "[DateTimeUtils]")
 {
     REQUIRE(DateTimeUtils::BuildDateTime(2019) == e::system::datetime(43466.0));
-    REQUIRE(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7) == e::system::datetime(43830.21258101852));
+    REQUIRE(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7) == D_20191231_050607);
 }
 
 TEST_CASE("DateTimeUtils::DateTimeToString", "[DateTimeUtils]")
@@ -23,4 +24,19 @@ TEST_CASE("DateTimeUtils::GetTimePart", "[DateTimeUtils]")
 TEST_CASE("DateTimeUtils::GetDatePart", "[DateTimeUtils]")
 {
     REQUIRE(DateTimeUtils::GetDatePart(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7)) == DateTimeUtils::BuildDateTime(2019, 12, 31));
+}
+
+TEST_CASE("DateTimeUtils::GetHourPart", "[DateTimeUtils]")
+{
+    REQUIRE(DateTimeUtils::GetHourPart(D_20191231_050607) == 5);
+}
+
+TEST_CASE("DateTimeUtils::GetMinutePart", "[DateTimeUtils]")
+{
+    REQUIRE(DateTimeUtils::GetMinutePart(D_20191231_050607) == 6);
+}
+
+TEST_CASE("DateTimeUtils::GetSecondPart", "[DateTimeUtils]")
+{
+    REQUIRE(DateTimeUtils::GetSecondPart(D_20191231_050607) == 7);
 }

@@ -31,6 +31,12 @@ namespace e
                 }
                 void PlayBeep();
                 [[noreturn]] void Exit();
+                int32_t GetScreenWidth();
+                int32_t GetScreenHeight();
+                int32_t GetCursorXPos();
+                int32_t GetCursorYPos();
+                int32_t GetDisplayColorCount();
+                int32_t GetLastSystemError();
             }
         }
     }

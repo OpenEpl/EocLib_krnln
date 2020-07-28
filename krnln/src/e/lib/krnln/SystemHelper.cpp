@@ -24,3 +24,52 @@ void e::lib::krnln::SystemUtils::Exit()
 {
     std::exit(0);
 }
+
+int32_t e::lib::krnln::SystemUtils::GetScreenWidth()
+{
+    return GetSystemMetrics(SM_CXSCREEN);
+}
+
+int32_t e::lib::krnln::SystemUtils::GetScreenHeight()
+{
+    return GetSystemMetrics(SM_CYSCREEN);
+}
+
+int32_t e::lib::krnln::SystemUtils::GetCursorXPos()
+{
+    POINT point;
+    if (GetCursorPos(&point))
+    {
+        return point.x;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int32_t e::lib::krnln::SystemUtils::GetCursorYPos()
+{
+    POINT point;
+    if (GetCursorPos(&point))
+    {
+        return point.y;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int32_t e::lib::krnln::SystemUtils::GetDisplayColorCount()
+{
+    auto hdc = GetDC(nullptr);
+    auto result = GetDeviceCaps(hdc, COLORRES);
+    ReleaseDC(nullptr, hdc);
+    return (1 << result);
+}
+
+int32_t e::lib::krnln::SystemUtils::GetLastSystemError()
+{
+    return GetLastError();
+}

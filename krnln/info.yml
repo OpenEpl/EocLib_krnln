@@ -862,6 +862,30 @@ Cmd:
     - DataType: intptr_t
     - DataType: intptr_t
       Optional: true
+  取屏幕宽度:
+    CppName: e::lib::krnln::SystemUtils::GetScreenWidth
+    ReturnDataType: int32_t
+    Parameters: []
+  取屏幕高度:
+    CppName: e::lib::krnln::SystemUtils::GetScreenHeight
+    ReturnDataType: int32_t
+    Parameters: []
+  取鼠标水平位置:
+    CppName: e::lib::krnln::SystemUtils::GetCursorXPos
+    ReturnDataType: int32_t
+    Parameters: []
+  取鼠标垂直位置:
+    CppName: e::lib::krnln::SystemUtils::GetCursorYPos
+    ReturnDataType: int32_t
+    Parameters: []
+  取颜色数:
+    CppName: e::lib::krnln::SystemUtils::GetDisplayColorCount
+    ReturnDataType: int32_t
+    Parameters: []
+  取最后错误:
+    CppName: e::lib::krnln::SystemUtils::GetLastSystemError
+    ReturnDataType: int32_t
+    Parameters: []
 Type:
   对象:
     CppName: e::lib::krnln::COMObject

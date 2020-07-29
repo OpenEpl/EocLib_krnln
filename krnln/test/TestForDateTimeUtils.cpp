@@ -21,6 +21,7 @@ TEST_CASE("DateTimeUtils::DateTimeToString", "[DateTimeUtils]")
 
 TEST_CASE("DateTimeUtils::GetTimePart", "[DateTimeUtils]")
 {
+    CHECK(DateTimeUtils::GetTimePart(DateTimeUtils::BuildDateTime(1888, 12, 31, 5, 6, 7)) == DateTimeUtils::BuildDateTime(2000, 1, 1, 5, 6, 7));
     CHECK(DateTimeUtils::GetTimePart(DateTimeUtils::BuildDateTime(2019, 12, 31, 5, 6, 7)) == DateTimeUtils::BuildDateTime(2000, 1, 1, 5, 6, 7));
 }
 

@@ -57,7 +57,7 @@ e::system::datetime e::lib::krnln::DateTimeUtils::Now()
 e::system::datetime e::lib::krnln::DateTimeUtils::GetTimePart(e::system::datetime x)
 {
     double intpart;
-    return e::system::datetime(std::modf(x.value, &intpart) + 36526.0 /* 2000年1月1日 */);
+    return e::system::datetime(std::fabs(std::modf(x.value, &intpart)) + 36526.0 /* 2000年1月1日 */);
 }
 
 e::system::datetime e::lib::krnln::DateTimeUtils::GetDatePart(e::system::datetime x)

@@ -48,6 +48,31 @@ TEST_CASE("DateTimeUtils::GetSecondPart", "[DateTimeUtils]")
     CHECK(DateTimeUtils::GetSecondPart(D_20191231_050607) == 7);
 }
 
+TEST_CASE("DateTimeUtils::GetYearPart", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::GetYearPart(D_18990101_111213) == 1899);
+    CHECK(DateTimeUtils::GetYearPart(D_20191231_050607) == 2019);
+    CHECK(DateTimeUtils::GetYearPart(D_20200101_050607) == 2020);
+    CHECK(DateTimeUtils::GetYearPart(D_20200102_050607) == 2020);
+}
+
+TEST_CASE("DateTimeUtils::GetMonthPart", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::GetMonthPart(D_18990101_111213) == 1);
+    CHECK(DateTimeUtils::GetMonthPart(D_20191231_050607) == 12);
+    CHECK(DateTimeUtils::GetMonthPart(D_20200101_050607) == 1);
+    CHECK(DateTimeUtils::GetMonthPart(D_20200102_050607) == 1);
+}
+
+
+TEST_CASE("DateTimeUtils::GetDayPart", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::GetDayPart(D_18990101_111213) == 1);
+    CHECK(DateTimeUtils::GetDayPart(D_20191231_050607) == 31);
+    CHECK(DateTimeUtils::GetDayPart(D_20200101_050607) == 1);
+    CHECK(DateTimeUtils::GetDayPart(D_20200102_050607) == 2);
+}
+
 TEST_CASE("DateTimeUtils::DayOfWeek", "[DateTimeUtils]")
 {
     CHECK(DateTimeUtils::DayOfWeek(D_18990101_111213) == 1);

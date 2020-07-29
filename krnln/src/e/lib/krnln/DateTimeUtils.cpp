@@ -21,26 +21,21 @@ e::system::string e::lib::krnln::DateTimeUtils::DateTimeToString(e::system::date
         break;
     }
 
-    std::stringstream s;
-    SYSTEMTIME info;
-    VariantTimeToSystemTime(value.value, &info);
+    std::ostringstream s;
     if (convertDate)
     {
-        s << info.wYear;
-        s << "年";
-        s << info.wMonth;
-        s << "月";
-        s << info.wDay;
-        s << "日";
+        int32_t year, month, day;
+        value.get_date_part(&year, &month, &day);
+        s << year << "年" << month << "月" << day << "日";
     }
-    if (convertTime && (info.wHour | info.wMinute | info.wSecond))
+    if (convertTime)
     {
-        s << info.wHour;
-        s << "时";
-        s << info.wMinute;
-        s << "分";
-        s << info.wSecond;
-        s << "秒";
+        int32_t hour, minute, second;
+        value.get_time_part(&hour, &minute, &second);
+        if (hour | minute | second)
+        {
+            s << hour << "时" << minute << "分" << second << "秒";
+        }
     }
     return e::system::string(s.str().c_str());
 }
@@ -69,43 +64,46 @@ e::system::datetime e::lib::krnln::DateTimeUtils::GetDatePart(e::system::datetim
 
 e::system::datetime e::lib::krnln::DateTimeUtils::BuildDateTime(int32_t year, std::optional<int32_t> month, std::optional<int32_t> day, std::optional<int32_t> hour, std::optional<int32_t> minute, std::optional<int32_t> second)
 {
-    SYSTEMTIME info = {0};
-    e::system::datetime result;
-    info.wYear = (WORD)year;
-    info.wMonth = (WORD)month.value_or(1);
-    info.wDay = (WORD)day.value_or(1);
-    info.wHour = (WORD)hour.value_or(0);
-    info.wMinute = (WORD)minute.value_or(0);
-    info.wSecond = (WORD)second.value_or(0);
-    SystemTimeToVariantTime(&info, &result.value);
-    return result;
+    return e::system::datetime(
+        year,
+        month.value_or(1),
+        day.value_or(1),
+        hour.value_or(0),
+        minute.value_or(0),
+        second.value_or(0));
 }
 
-inline int32_t GetTotalSecondsInTimePart(e::system::datetime value)
+int32_t e::lib::krnln::DateTimeUtils::GetYearPart(e::system::datetime value)
 {
-    constexpr int32_t totalSecondsPerDay = 24 * 60 * 60;
-    double dataPart;
-    double timePart = std::modf(value.value, &dataPart);
-    int32_t result = static_cast<int32_t>(std::round(totalSecondsPerDay * std::abs(timePart)));
-    return result;
+    return value.year();
+}
+
+int32_t e::lib::krnln::DateTimeUtils::GetMonthPart(e::system::datetime value)
+{
+    return value.month();
+}
+
+int32_t e::lib::krnln::DateTimeUtils::GetDayPart(e::system::datetime value)
+{
+    return value.day();
 }
 
 int32_t e::lib::krnln::DateTimeUtils::GetHourPart(e::system::datetime value)
 {
-    return GetTotalSecondsInTimePart(value) / 3600;
+    return value.hour();
 }
 
 int32_t e::lib::krnln::DateTimeUtils::GetMinutePart(e::system::datetime value)
 {
-    return (GetTotalSecondsInTimePart(value) / 60) % 60;
+    return value.minute();
 }
 
 int32_t e::lib::krnln::DateTimeUtils::GetSecondPart(e::system::datetime value)
 {
-    return GetTotalSecondsInTimePart(value) % 60;
+    return value.second();
 }
 
 int32_t e::lib::krnln::DateTimeUtils::DayOfWeek(e::system::datetime value)
 {
-    return (static_cast<int32_t>(std::fmod(value.value, 7)) + 6) % 7 + 1;
+    return value.day_of_week();
 }

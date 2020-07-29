@@ -344,6 +344,21 @@ Cmd:
     CppName: e::lib::krnln::DateTimeUtils::Now
     ReturnDataType: e::system::datetime
     Parameters: []
+  取年份:
+    CppName: e::lib::krnln::DateTimeUtils::GetYearPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
+  取月份:
+    CppName: e::lib::krnln::DateTimeUtils::GetMonthPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
+  取日:
+    CppName: e::lib::krnln::DateTimeUtils::GetDayPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
   取小时:
     CppName: e::lib::krnln::DateTimeUtils::GetHourPart
     ReturnDataType: int32_t

@@ -379,6 +379,12 @@ Cmd:
     ReturnDataType: int32_t
     Parameters:
     - DataType: e::system::datetime
+  取某月天数:
+    CppName: e::lib::krnln::DateTimeUtils::DaysInMonth
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: int32_t
+    - DataType: int32_t
   取启动时间:
     CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t

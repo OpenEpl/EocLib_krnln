@@ -23,6 +23,7 @@ namespace e
                 int32_t GetMinutePart(e::system::datetime value);
                 int32_t GetSecondPart(e::system::datetime value);
                 int32_t DayOfWeek(e::system::datetime value);
+                int32_t DaysInMonth(int32_t year, int32_t month);
             }
         }
     }

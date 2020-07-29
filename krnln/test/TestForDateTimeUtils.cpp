@@ -64,7 +64,6 @@ TEST_CASE("DateTimeUtils::GetMonthPart", "[DateTimeUtils]")
     CHECK(DateTimeUtils::GetMonthPart(D_20200102_050607) == 1);
 }
 
-
 TEST_CASE("DateTimeUtils::GetDayPart", "[DateTimeUtils]")
 {
     CHECK(DateTimeUtils::GetDayPart(D_18990101_111213) == 1);
@@ -79,4 +78,16 @@ TEST_CASE("DateTimeUtils::DayOfWeek", "[DateTimeUtils]")
     CHECK(DateTimeUtils::DayOfWeek(D_20191231_050607) == 3);
     CHECK(DateTimeUtils::DayOfWeek(D_20200101_050607) == 4);
     CHECK(DateTimeUtils::DayOfWeek(D_20200102_050607) == 5);
+}
+
+TEST_CASE("DateTimeUtils::DaysInMonth", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::DaysInMonth(2020, 1) == 31);
+    CHECK(DateTimeUtils::DaysInMonth(2020, 2) == 29);
+    CHECK(DateTimeUtils::DaysInMonth(2020, 3) == 31);
+
+    CHECK(DateTimeUtils::DaysInMonth(2019, 2) == 28);
+    CHECK(DateTimeUtils::DaysInMonth(2004, 2) == 29);
+    CHECK(DateTimeUtils::DaysInMonth(2000, 2) == 29);
+    CHECK(DateTimeUtils::DaysInMonth(1900, 2) == 28);
 }

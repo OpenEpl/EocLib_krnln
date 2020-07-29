@@ -107,3 +107,22 @@ int32_t e::lib::krnln::DateTimeUtils::DayOfWeek(e::system::datetime value)
 {
     return value.day_of_week();
 }
+
+int32_t e::lib::krnln::DateTimeUtils::DaysInMonth(int32_t year, int32_t month)
+{
+    constexpr int32_t daysInMonthOfRegularYear[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month < 1 || month > 12)
+    {
+        throw std::invalid_argument("month is out of range");
+    }
+    int32_t result = daysInMonthOfRegularYear[month - 1];
+    if (month == 2)
+    {
+        bool leapYear = ((year % 4) == 0) && ((year % 100) != 0 || (year % 400) == 0);
+        if (leapYear)
+        {
+            result++;
+        }
+    }
+    return result;
+}

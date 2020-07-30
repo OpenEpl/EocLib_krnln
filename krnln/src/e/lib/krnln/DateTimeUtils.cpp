@@ -126,3 +126,93 @@ int32_t e::lib::krnln::DateTimeUtils::DaysInMonth(int32_t year, int32_t month)
     }
     return result;
 }
+
+// Note that the result is calculated based on year only
+// The distance can be 1 even though they are only one day apart
+inline double DateTimeDistanceInYear(e::system::datetime x, e::system::datetime y)
+{
+    return x.year() - y.year();
+}
+
+// Note that the result is calculated based on year and month only
+// The distance can be 1 even though they are only one day apart
+inline double DateTimeDistanceInQuarter(e::system::datetime x, e::system::datetime y)
+{
+    int32_t x_year, x_month, y_year, y_month;
+    x.get_date_part(&x_year, &x_month, nullptr);
+    y.get_date_part(&y_year, &y_month, nullptr);
+    return (x_year - y_year) * 4 + (x_month - 1) / 3 - (y_month - 1) / 3;
+}
+
+// Note that the result is calculated based on year and month only
+// The distance can be 1 even though they are only one day apart
+inline double DateTimeDistanceInMonth(e::system::datetime x, e::system::datetime y)
+{
+    int32_t x_year, x_month, y_year, y_month;
+    x.get_date_part(&x_year, &x_month, nullptr);
+    y.get_date_part(&y_year, &y_month, nullptr);
+    return (x_year - y_year) * 12 + x_month - y_month;
+}
+
+// Note that the distance is between x's week number and y's week number
+// eg.
+// 1) Saturday, Aug. 8, 2020 is in the same week as that of Friday, Aug. 7, 2020, so the distance is 0
+// 2) Sunday, Aug. 9, 2020 is in the next week of that of Friday, Aug. 7, 2020, so the distance is 1, even though they are only two days apart
+inline double DateTimeDistanceInWeek(e::system::datetime x, e::system::datetime y)
+{
+    return std::trunc((x.value - 1) / 7) - std::trunc((y.value - 1) / 7);
+}
+
+// Note that the result contains decimals
+// eg. The distance between 18:00 and 15:00 (in the same day, of course) is 0.125
+inline double DateTimeDistanceInDay(e::system::datetime x, e::system::datetime y)
+{
+    double dataPart_x;
+    double timePart_x = std::fabs(std::modf(x.value, &dataPart_x));
+    double dataPart_y;
+    double timePart_y = std::fabs(std::modf(y.value, &dataPart_y));
+    return dataPart_x - dataPart_y + timePart_x - timePart_y;
+}
+
+// Note that the result is truncated to an integer
+inline double DateTimeDistanceInHour(e::system::datetime x, e::system::datetime y)
+{
+    return std::trunc(DateTimeDistanceInDay(x, y) * 24);
+}
+
+// Note that the result is truncated to an integer
+inline double DateTimeDistanceInMinute(e::system::datetime x, e::system::datetime y)
+{
+    return std::trunc(DateTimeDistanceInDay(x, y) * 24 * 60);
+}
+
+// Note that the result is rounded (not truncated) to an integer
+inline double DateTimeDistanceInSecond(e::system::datetime x, e::system::datetime y)
+{
+    return std::round(DateTimeDistanceInDay(x, y) * 24 * 60 * 60);
+}
+
+double e::lib::krnln::DateTimeUtils::GetDistance(e::system::datetime x, e::system::datetime y, int32_t type)
+{
+    switch (type)
+    {
+    case Year:
+        return DateTimeDistanceInYear(x, y);
+    case Quarter:
+        return DateTimeDistanceInQuarter(x, y);
+    case Month:
+        return DateTimeDistanceInMonth(x, y);
+    case Week:
+        return DateTimeDistanceInWeek(x, y);
+    case Day:
+        return DateTimeDistanceInDay(x, y);
+    case Hour:
+        return DateTimeDistanceInHour(x, y);
+    case Minute:
+        return DateTimeDistanceInMinute(x, y);
+    case Second:
+        return DateTimeDistanceInSecond(x, y);
+    default:
+        throw std::invalid_argument("unknown distance type for datetime");
+    }
+}

@@ -11,6 +11,14 @@ namespace e
                 const int32_t ConvertDateTime(1);
                 const int32_t ConvertDate(2);
                 const int32_t ConvertTime(3);
+                const int32_t Year(1);
+                const int32_t Quarter(2);
+                const int32_t Month(3);
+                const int32_t Week(4);
+                const int32_t Day(5);
+                const int32_t Hour(6);
+                const int32_t Minute(7);
+                const int32_t Second(8);
                 e::system::string DateTimeToString(e::system::datetime value, std::optional<int> mode = ConvertDateTime);
                 e::system::datetime Now();
                 e::system::datetime GetTimePart(e::system::datetime x);
@@ -24,6 +32,7 @@ namespace e
                 int32_t GetSecondPart(e::system::datetime value);
                 int32_t DayOfWeek(e::system::datetime value);
                 int32_t DaysInMonth(int32_t year, int32_t month);
+                double GetDistance(e::system::datetime x, e::system::datetime y, int32_t type);
             }
         }
     }

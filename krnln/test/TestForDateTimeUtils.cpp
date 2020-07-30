@@ -91,3 +91,19 @@ TEST_CASE("DateTimeUtils::DaysInMonth", "[DateTimeUtils]")
     CHECK(DateTimeUtils::DaysInMonth(2000, 2) == 29);
     CHECK(DateTimeUtils::DaysInMonth(1900, 2) == 28);
 }
+
+TEST_CASE("DateTimeUtils::GetDistance", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Year) == 1);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Quarter) == 1);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Month) == 1);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Week) == 0);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Day) == 1);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Hour) == 24);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Minute) == 1440);
+    CHECK(DateTimeUtils::GetDistance(D_20200101_050607, D_20191231_050607, DateTimeUtils::Second) == 86400);
+    CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9), e::system::datetime(2020, 8, 7), DateTimeUtils::Week) == 1);
+    CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9, 12), e::system::datetime(2020, 8, 9, 10, 45), DateTimeUtils::Hour) == 1);
+    CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9, 12), e::system::datetime(2020, 8, 9, 11, 44, 45), DateTimeUtils::Minute) == 15);
+    CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9, 12), e::system::datetime(2020, 8, 9, 11, 59, 45), DateTimeUtils::Second) == 15);
+}

@@ -385,6 +385,13 @@ Cmd:
     Parameters:
     - DataType: int32_t
     - DataType: int32_t
+  取时间间隔:
+    CppName: e::lib::krnln::DateTimeUtils::GetDistance
+    ReturnDataType: double
+    Parameters:
+    - DataType: e::system::datetime
+    - DataType: e::system::datetime
+    - DataType: int32_t
   取启动时间:
     CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t

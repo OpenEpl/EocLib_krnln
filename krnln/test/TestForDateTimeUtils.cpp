@@ -107,3 +107,17 @@ TEST_CASE("DateTimeUtils::GetDistance", "[DateTimeUtils]")
     CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9, 12), e::system::datetime(2020, 8, 9, 11, 44, 45), DateTimeUtils::Minute) == 15);
     CHECK(DateTimeUtils::GetDistance(e::system::datetime(2020, 8, 9, 12), e::system::datetime(2020, 8, 9, 11, 59, 45), DateTimeUtils::Second) == 15);
 }
+
+TEST_CASE("DateTimeUtils::GetSpecificPart", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Year) == 2019);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Quarter) == 4);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Month) == 12);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::CalcWeekOfYear) == 53);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Day) == 31);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Hour) == 5);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Minute) == 6);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::Second) == 7);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::CalcDayOfWeek) == 3);
+    CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::CalcDayOfYear) == 365);
+}

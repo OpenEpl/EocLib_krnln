@@ -392,6 +392,12 @@ Cmd:
     - DataType: e::system::datetime
     - DataType: e::system::datetime
     - DataType: int32_t
+  取时间部分:
+    CppName: e::lib::krnln::DateTimeUtils::GetSpecificPart
+    ReturnDataType: int32_t
+    Parameters:
+    - DataType: e::system::datetime
+    - DataType: int32_t
   取启动时间:
     CppName: e::lib::krnln::EnvironmentInfo::Tick
     ReturnDataType: int32_t
@@ -999,4 +1005,48 @@ Constant:
   时间部分:
     CppName: e::lib::krnln::DateTimeUtils::ConvertTime
     DataType: int32_t
+  年份:
+    CppName: e::lib::krnln::DateTimeUtils::Year
+    DataType: int32_t
+    Value: 1
+  季度:
+    CppName: e::lib::krnln::DateTimeUtils::Quarter
+    DataType: int32_t
+    Value: 2
+  月份:
+    CppName: e::lib::krnln::DateTimeUtils::Month
+    DataType: int32_t
+    Value: 3
+  周:
+    CppName: e::lib::krnln::DateTimeUtils::Week
+    DataType: int32_t
+    Value: 4
+  日:
+    CppName: e::lib::krnln::DateTimeUtils::Day
+    DataType: int32_t
+    Value: 5
+  小时:
+    CppName: e::lib::krnln::DateTimeUtils::Hour
+    DataType: int32_t
+    Value: 6
+  分钟:
+    CppName: e::lib::krnln::DateTimeUtils::Minute
+    DataType: int32_t
+    Value: 7
+  秒:
+    CppName: e::lib::krnln::DateTimeUtils::Second
+    DataType: int32_t
+    Value: 8
+  自年首周数:
+    CppName: e::lib::krnln::DateTimeUtils::CalcWeekOfYear
+    DataType: int32_t
+    Value: 4
+  星期几:
+    CppName: e::lib::krnln::DateTimeUtils::CalcDayOfWeek
+    DataType: int32_t
+    Value: 9
+  自年首天数:
+    CppName: e::lib::krnln::DateTimeUtils::CalcDayOfYear
+    DataType: int32_t
+    Value: 10
 Enum: {}

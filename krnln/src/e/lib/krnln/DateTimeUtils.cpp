@@ -216,3 +216,32 @@ double e::lib::krnln::DateTimeUtils::GetDistance(e::system::datetime x, e::syste
         throw std::invalid_argument("unknown distance type for datetime");
     }
 }
+
+int32_t e::lib::krnln::DateTimeUtils::GetSpecificPart(e::system::datetime x, int32_t type)
+{
+    switch (type)
+    {
+    case Year:
+        return x.year();
+    case Quarter:
+        return (x.month() + 2) / 3;
+    case Month:
+        return x.month();
+    case CalcWeekOfYear:
+        return (x.day_of_year() + 6) / 7;
+    case Day:
+        return x.day();
+    case Hour:
+        return x.hour();
+    case Minute:
+        return x.minute();
+    case Second:
+        return x.second();
+    case CalcDayOfWeek:
+        return x.day_of_week();
+    case CalcDayOfYear:
+        return x.day_of_year();
+    default:
+        throw std::invalid_argument("unknown part type for datetime");
+    }
+}

@@ -42,11 +42,14 @@ e::system::string e::lib::krnln::DateTimeUtils::DateTimeToString(e::system::date
 
 e::system::datetime e::lib::krnln::DateTimeUtils::Now()
 {
-    SYSTEMTIME info;
-    e::system::datetime result;
-    GetLocalTime(&info);
-    SystemTimeToVariantTime(&info, &result.value);
-    return result;
+    FILETIME ft, lft;
+    GetSystemTimeAsFileTime(&ft);
+    FileTimeToLocalFileTime(&ft, &lft);
+    auto lft_i = ULARGE_INTEGER{lft.dwLowDateTime, lft.dwHighDateTime}.QuadPart;
+    double offset = lft_i / 864000000000.0 - 109205.0;
+    double datePart = std::floor(offset);
+    double timePart = offset - datePart;
+    return e::system::datetime(datePart + std::copysign(timePart, datePart));
 }
 
 e::system::datetime e::lib::krnln::DateTimeUtils::GetTimePart(e::system::datetime x)

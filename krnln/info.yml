@@ -480,7 +480,7 @@ Cmd:
     - DataType: bool
       Optional: true
   取字节集数据:
-    CppName: e::lib::krnln::GetDataFromBin
+    CppName: e::lib::krnln::BinUtils::GetDataFromBin
     ReturnDataType: e::system::any
     Parameters:
     - DataType: e::system::bin

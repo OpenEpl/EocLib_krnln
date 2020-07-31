@@ -73,6 +73,7 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "codecvt": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "concepts": "cpp"
     }
 }

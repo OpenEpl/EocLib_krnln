@@ -45,6 +45,7 @@ namespace e
                 {
                     return ReplaceSubBin(x, oldBin, std::optional(std::cref(newBin)), startIndex, limit);
                 }
+                e::system::any GetDataFromBin(const e::system::bin &from, int32_t type, std::optional<std::reference_wrapper<int32_t>> pos = std::nullopt);
             }
         }
     }

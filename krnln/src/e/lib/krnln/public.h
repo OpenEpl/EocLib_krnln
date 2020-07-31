@@ -19,6 +19,7 @@
 #include "file/FileUtils.h"
 #include "EnvironmentInfo.h"
 #include "com/COMObject.h"
+#include "GeneralUtils.h"
 namespace e::lib::krnln
 {
 }

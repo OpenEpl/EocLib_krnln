@@ -947,6 +947,20 @@ Cmd:
     CppName: e::lib::krnln::SystemUtils::GetLastSystemError
     ReturnDataType: int32_t
     Parameters: []
+  交换变量:
+    CppName: std::swap
+    Parameters: 
+    - DataType: '*'
+      ByRef: true
+    - DataType: '*'
+      ByRef: true
+  强制交换变量:
+    CppName: e::lib::krnln::GeneralUtils::ForceSwap
+    Parameters: 
+    - DataType: '*'
+      ByRef: true
+    - DataType: '*'
+      ByRef: true
 Type:
   对象:
     CppName: e::lib::krnln::COMObject

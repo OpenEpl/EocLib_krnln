@@ -108,6 +108,11 @@ int32_t e::lib::krnln::DateTimeUtils::DayOfWeek(e::system::datetime value)
     return value.day_of_week();
 }
 
+inline bool IsLeapYear(int32_t year)
+{
+    return ((year % 4) == 0) && ((year % 100) != 0 || (year % 400) == 0);
+}
+
 int32_t e::lib::krnln::DateTimeUtils::DaysInMonth(int32_t year, int32_t month)
 {
     constexpr int32_t daysInMonthOfRegularYear[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -118,8 +123,7 @@ int32_t e::lib::krnln::DateTimeUtils::DaysInMonth(int32_t year, int32_t month)
     int32_t result = daysInMonthOfRegularYear[month - 1];
     if (month == 2)
     {
-        bool leapYear = ((year % 4) == 0) && ((year % 100) != 0 || (year % 400) == 0);
-        if (leapYear)
+        if (IsLeapYear(year))
         {
             result++;
         }
@@ -243,5 +247,86 @@ int32_t e::lib::krnln::DateTimeUtils::GetSpecificPart(e::system::datetime x, int
         return x.day_of_year();
     default:
         throw std::invalid_argument("unknown part type for datetime");
+    }
+}
+
+inline e::system::datetime AddYear(e::system::datetime x, int32_t interval)
+{
+    int32_t year, month, day;
+    x.get_date_part(&year, &month, &day);
+    year += interval;
+    if (month == 2 && day == 29)
+    {
+        if (!IsLeapYear(year))
+        {
+            day--;
+        }
+    }
+    e::system::datetime result(year, month, day);
+    double originalDatePart;
+    result.value += std::copysign(std::modf(x.value, &originalDatePart), result.value);
+    return result;
+}
+
+inline e::system::datetime AddMonth(e::system::datetime x, int32_t interval)
+{
+    int32_t year, month, day;
+    x.get_date_part(&year, &month, &day);
+
+    month = year * 12 + month + interval - 1;
+    year = month / 12;
+    month = month % 12 + 1;
+
+    int32_t maxDay = e::lib::krnln::DateTimeUtils::DaysInMonth(year, month);
+    if (day > maxDay)
+    {
+        day = maxDay;
+    }
+    e::system::datetime result(year, month, day);
+    double originalDatePart;
+    result.value += std::copysign(std::modf(x.value, &originalDatePart), result.value);
+    return result;
+}
+
+inline e::system::datetime AddDay(e::system::datetime x, int32_t interval)
+{
+    double datePart;
+    double timePartWithSign = std::modf(x.value, &datePart);
+    datePart += interval;
+    return e::system::datetime(datePart + std::copysign(timePartWithSign, datePart));
+}
+
+inline e::system::datetime AddDay(e::system::datetime x, double interval)
+{
+    double datePart;
+    double timePart = std::fabs(std::modf(x.value, &datePart));
+    double offset = datePart + timePart + interval;
+    datePart = std::floor(offset);
+    timePart = offset - datePart;
+    return e::system::datetime(datePart + std::copysign(timePart, datePart));
+}
+
+e::system::datetime e::lib::krnln::DateTimeUtils::DateAdd(e::system::datetime x, int32_t type, int32_t interval)
+{
+    switch (type)
+    {
+    case Year:
+        return AddYear(x, interval);
+    case Quarter:
+        return AddMonth(x, interval * 3);
+    case Month:
+        return AddMonth(x, interval);
+    case Week:
+        return AddDay(x, interval * 7);
+    case Day:
+        return AddDay(x, interval);
+    case Hour:
+        return AddDay(x, interval / (double)24);
+    case Minute:
+        return AddDay(x, interval / (double)(24 * 60));
+    case Second:
+        return AddDay(x, interval / (double)(24 * 60 * 60));
+    default:
+        throw std::invalid_argument("unknown distance type for datetime");
     }
 }

@@ -37,6 +37,7 @@ namespace e
                 int32_t DaysInMonth(int32_t year, int32_t month);
                 double GetDistance(e::system::datetime x, e::system::datetime y, int32_t type);
                 int32_t GetSpecificPart(e::system::datetime x, int32_t type);
+                e::system::datetime DateAdd(e::system::datetime x, int32_t type, int32_t interval);
             }
         }
     }

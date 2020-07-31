@@ -121,3 +121,16 @@ TEST_CASE("DateTimeUtils::GetSpecificPart", "[DateTimeUtils]")
     CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::CalcDayOfWeek) == 3);
     CHECK(DateTimeUtils::GetSpecificPart(D_20191231_050607, DateTimeUtils::CalcDayOfYear) == 365);
 }
+
+TEST_CASE("DateTimeUtils::DateAdd", "[DateTimeUtils]")
+{
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 8, 9), DateTimeUtils::Year, 1) == e::system::datetime(2020, 8, 9));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2020, 2, 29), DateTimeUtils::Year, -1) == e::system::datetime(2019, 2, 28));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 8, 9), DateTimeUtils::Month, 1) == e::system::datetime(2019, 9, 9));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 8, 31), DateTimeUtils::Month, 1) == e::system::datetime(2019, 9, 30));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 1, 31), DateTimeUtils::Month, 1) == e::system::datetime(2019, 2, 28));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 1, 31), DateTimeUtils::Day, 1) == e::system::datetime(2019, 2, 1));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(2019, 1, 31), DateTimeUtils::Hour, 1) == e::system::datetime(2019, 1, 31, 1));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(1899, 1, 31), DateTimeUtils::Hour, 1) == e::system::datetime(1899, 1, 31, 1));
+    CHECK(DateTimeUtils::DateAdd(e::system::datetime(1899, 12, 29), DateTimeUtils::Hour, 27) == e::system::datetime(1899, 12, 30, 3));
+}

@@ -392,6 +392,13 @@ Cmd:
     - DataType: e::system::datetime
     - DataType: e::system::datetime
     - DataType: int32_t
+  增减时间:
+    CppName: e::lib::krnln::DateTimeUtils::DateAdd
+    ReturnDataType: e::system::datetime
+    Parameters:
+    - DataType: e::system::datetime
+    - DataType: int32_t
+    - DataType: int32_t
   取时间部分:
     CppName: e::lib::krnln::DateTimeUtils::GetSpecificPart
     ReturnDataType: int32_t

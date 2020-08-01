@@ -17,7 +17,7 @@ set_property(TARGET EocKrnln PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_link_eoc_lib(EocKrnln system EocSystem)
 target_include_directories(EocKrnln PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
-target_link_libraries(EocKrnln PUBLIC Shlwapi.lib Rpcrt4.lib Ws2_32.lib)
+target_link_libraries(EocKrnln PUBLIC Shlwapi.lib Rpcrt4.lib Ws2_32.lib Iphlpapi.lib)
 
 if(EocKrnln_BUILD_TESTS)
 	enable_testing()

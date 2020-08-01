@@ -12,4 +12,5 @@ namespace e::lib::krnln::NetworkUtils
     e::system::string HostNameToAddress(const e::system::string &hostname);
     e::system::string AddressToHostName(const e::system::string &hostname);
     e::system::string GetHostName();
+    int32_t ICMPPing(const e::system::string &hostname, std::optional<int32_t> timeout = std::nullopt);
 }

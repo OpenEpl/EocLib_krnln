@@ -1,6 +1,9 @@
 ﻿#include "NetworkUtils.h"
 #include <Ws2tcpip.h>
 #include <Wspiapi.h>
+#include <iphlpapi.h>
+#include <IPExport.h>
+#include <icmpapi.h>
 namespace e::lib::krnln::NetworkUtils
 {
     SocketInitializer::SocketInitializer(uint16_t versionRequested)
@@ -68,6 +71,61 @@ namespace e::lib::krnln::NetworkUtils
         SocketInitializer wsa;
         e::system::string result(256);
         gethostname(result.c_str(), 256);
+        return result;
+    }
+
+    int32_t ICMPPing(const e::system::string &hostname, std::optional<int32_t> timeout)
+    {
+        SocketInitializer wsa;
+        int32_t result = -1;
+        addrinfo *info;
+        int error = getaddrinfo(hostname.c_str(), nullptr, nullptr, &info);
+        if (error == 0)
+        {
+            IP_OPTION_INFORMATION optionInfo;
+            memset(&optionInfo, 0, sizeof(IP_OPTION_INFORMATION));
+            optionInfo.Ttl = 128;
+
+            constexpr int packetSize = 32;
+            uint8_t pSend[packetSize];
+            memset(pSend, 'E', packetSize);
+            if (info->ai_family == AF_INET)
+            {
+                constexpr int replySize = sizeof(ICMP_ECHO_REPLY) + packetSize + 8;
+                uint8_t pReply[replySize];
+                auto pEchoReply = (ICMP_ECHO_REPLY *)pReply;
+
+                HANDLE hIp = IcmpCreateFile();
+                DWORD nPackets = IcmpSendEcho(hIp, ((sockaddr_in *)info->ai_addr)->sin_addr.s_addr, pSend, 32, &optionInfo, pReply, replySize, timeout.value_or(10000));
+                if (nPackets > 0 && pEchoReply->Status == 0)
+                {
+                    result = pEchoReply->RoundTripTime;
+                }
+                IcmpCloseHandle(hIp);
+            }
+            else if (info->ai_family == AF_INET6)
+            {
+                sockaddr_in6 srcAddress;
+                srcAddress.sin6_family = AF_INET6;
+                srcAddress.sin6_flowinfo = 0;
+                srcAddress.sin6_port = 0;
+                srcAddress.sin6_scope_id = 0;
+                srcAddress.sin6_addr = in6addr_any;
+
+                constexpr int replySize = sizeof(ICMPV6_ECHO_REPLY) + packetSize + 8;
+                uint8_t pReply[replySize];
+                auto pEchoReply = (ICMPV6_ECHO_REPLY *)pReply;
+
+                HANDLE hIp = Icmp6CreateFile();
+                DWORD nPackets = Icmp6SendEcho2(hIp, nullptr, nullptr, nullptr, &srcAddress, (sockaddr_in6 *)(info->ai_addr), pSend, packetSize, &optionInfo, pReply, replySize, timeout.value_or(10000));
+                if (nPackets > 0 && pEchoReply->Status == 0)
+                {
+                    result = pEchoReply->RoundTripTime;
+                }
+                IcmpCloseHandle(hIp);
+            }
+            freeaddrinfo(info);
+        }
         return result;
     }
 }

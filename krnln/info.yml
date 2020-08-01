@@ -975,6 +975,13 @@ Cmd:
     CppName: e::lib::krnln::NetworkUtils::GetHostName
     ReturnDataType: e::system::string
     Parameters: []
+  通信测试:
+    CppName: e::lib::krnln::NetworkUtils::ICMPPing
+    ReturnDataType: int32_t
+    Parameters: 
+    - DataType: e::system::string
+    - DataType: int32_t
+      Optional: true
 Type:
   对象:
     CppName: e::lib::krnln::COMObject

@@ -961,6 +961,20 @@ Cmd:
       ByRef: true
     - DataType: '*'
       ByRef: true
+  转换为IP地址:
+    CppName: e::lib::krnln::NetworkUtils::HostNameToAddress
+    ReturnDataType: e::system::string
+    Parameters: 
+    - DataType: e::system::string
+  转换为主机名:
+    CppName: e::lib::krnln::NetworkUtils::AddressToHostName
+    ReturnDataType: e::system::string
+    Parameters: 
+    - DataType: e::system::string
+  取主机名:
+    CppName: e::lib::krnln::NetworkUtils::GetHostName
+    ReturnDataType: e::system::string
+    Parameters: []
 Type:
   对象:
     CppName: e::lib::krnln::COMObject

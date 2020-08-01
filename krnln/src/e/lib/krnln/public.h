@@ -20,6 +20,7 @@
 #include "EnvironmentInfo.h"
 #include "com/COMObject.h"
 #include "GeneralUtils.h"
+#include "NetworkUtils.h"
 namespace e::lib::krnln
 {
 }

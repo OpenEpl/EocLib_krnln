@@ -998,6 +998,13 @@ Type:
         ReturnDataType: bool
         Parameters:
         - DataType: e::lib::krnln::COMObject
+      创建:
+        CppName: CreateInstance
+        ReturnDataType: bool
+        Parameters:
+        - DataType: e::system::string
+        - DataType: e::system::string
+          Optional: true
 Constant:
   标准输出设备:
     CppName: e::lib::krnln::ConsoleUtils::constant::StdOut

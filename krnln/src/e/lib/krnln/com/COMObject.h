@@ -19,7 +19,9 @@ namespace e::lib::krnln
         void Clear() noexcept;
         bool IsNull() noexcept;
         bool ReferenceEquals(const COMObject &that) noexcept;
-
+        bool CreateInstance(const e::system::string &description);
+        bool CreateInstance(const e::system::string &description, const e::system::string &typelibrary);
+        bool CreateInstance(const e::system::string &description, std::optional<std::reference_wrapper<const e::system::string>> typelibrary);
     private:
         void *data;
     };

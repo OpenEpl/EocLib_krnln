@@ -74,6 +74,7 @@
         "xutility": "cpp",
         "codecvt": "cpp",
         "thread": "cpp",
-        "concepts": "cpp"
+        "concepts": "cpp",
+        "*.rh": "cpp"
     }
 }

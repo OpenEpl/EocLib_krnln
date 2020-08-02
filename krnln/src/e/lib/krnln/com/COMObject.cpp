@@ -2,20 +2,15 @@
 #include <unknwn.h>
 namespace e::lib::krnln
 {
-    inline bool CLSIDFromDescription(const e::system::string &description, CLSID *result)
+    inline HRESULT CLSIDFromDescription(const e::system::string &description, CLSID *result)
     {
         auto descriptionW = e::system::ToNativeWideString(description);
         HRESULT hRet = CLSIDFromProgID(descriptionW.get(), result);
-        if (SUCCEEDED(hRet))
+        if (FAILED(hRet))
         {
-            return true;
+            hRet = CLSIDFromString(descriptionW.get(), result);
         }
-        hRet = CLSIDFromString(descriptionW.get(), result);
-        if (SUCCEEDED(hRet))
-        {
-            return true;
-        }
-        return false;
+        return hRet;
     }
     COMObjectImpl::COMObjectImpl() noexcept : COMObjectImpl(nullptr)
     {
@@ -85,12 +80,14 @@ namespace e::lib::krnln
     {
         this->Clear();
         CLSID clsid;
-        if (!CLSIDFromDescription(description, &clsid))
+        HRESULT hRet = CLSIDFromDescription(description, &clsid);
+        if (FAILED(hRet))
         {
+            this->last_error = hRet;
             return false;
         }
         IUnknown *lpUnknown = nullptr;
-        HRESULT hRet = CoCreateInstance(clsid, nullptr, CLSCTX_ALL | CLSCTX_REMOTE_SERVER, IID_IUnknown, (LPVOID *)&lpUnknown);
+        hRet = CoCreateInstance(clsid, nullptr, CLSCTX_ALL | CLSCTX_REMOTE_SERVER, IID_IUnknown, (LPVOID *)&lpUnknown);
         if (hRet == E_INVALIDARG)
         {
             // try without CLSCTX_REMOTE_SERVER
@@ -98,13 +95,16 @@ namespace e::lib::krnln
         }
         if (FAILED(hRet))
         {
+            this->last_error = hRet;
             return false;
         }
         hRet = OleRun(lpUnknown);
         if (FAILED(hRet))
         {
+            this->last_error = hRet;
             return false;
         }
+        this->last_error = S_OK;
         this->data = lpUnknown;
         return true;
     }
@@ -142,8 +142,10 @@ namespace e::lib::krnln
         hRet = OleRun(lpUnknown);
         if (FAILED(hRet))
         {
+            this->last_error = hRet;
             return false;
         }
+        this->last_error = S_OK;
         this->data = lpUnknown;
         return true;
     }
@@ -157,5 +159,28 @@ namespace e::lib::krnln
         {
             return this->CreateInstance(description);
         }
+    }
+    e::system::string COMObjectImpl::GetErrorMessage()
+    {
+        if (SUCCEEDED(this->last_error))
+        {
+            return e::system::string(nullptr);
+        }
+        wchar_t *errorTextW = nullptr;
+        DWORD ret = FormatMessageW(
+            FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
+            nullptr,
+            this->last_error,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&errorTextW,
+            0,
+            nullptr);
+        if (ret == 0 || errorTextW == nullptr)
+        {
+            return EOC_STR_CONST("Unexpected error is raised when getting error message.");
+        }
+        e::system::string result = e::system::ReceiveNativeWideString(errorTextW);
+        LocalFree(errorTextW);
+        return result;
     }
 }

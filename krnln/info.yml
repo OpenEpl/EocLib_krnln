@@ -1005,6 +1005,10 @@ Type:
         - DataType: e::system::string
         - DataType: e::system::string
           Optional: true
+      取错误:
+        CppName: GetErrorMessage
+        ReturnDataType: e::system::string
+        Parameters: []
 Constant:
   标准输出设备:
     CppName: e::lib::krnln::ConsoleUtils::constant::StdOut

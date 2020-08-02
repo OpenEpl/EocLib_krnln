@@ -22,7 +22,9 @@ namespace e::lib::krnln
         bool CreateInstance(const e::system::string &description);
         bool CreateInstance(const e::system::string &description, const e::system::string &typelibrary);
         bool CreateInstance(const e::system::string &description, std::optional<std::reference_wrapper<const e::system::string>> typelibrary);
+        e::system::string GetErrorMessage();
     private:
         void *data;
+        int32_t last_error;
     };
 }

@@ -1009,6 +1009,11 @@ Type:
         CppName: GetErrorMessage
         ReturnDataType: e::system::string
         Parameters: []
+      获取:
+        CppName: CreateInstance
+        ReturnDataType: bool
+        Parameters:
+        - DataType: e::system::string
 Constant:
   标准输出设备:
     CppName: e::lib::krnln::ConsoleUtils::constant::StdOut

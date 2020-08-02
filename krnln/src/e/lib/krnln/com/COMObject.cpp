@@ -186,4 +186,24 @@ namespace e::lib::krnln
         LocalFree(errorTextW);
         return result;
     }
+    bool COMObjectImpl::GetInstance(const e::system::string &description)
+    {
+        this->Clear();
+        CLSID clsid;
+        HRESULT hRet = CLSIDFromDescription(description, &clsid);
+        if (FAILED(hRet))
+        {
+            this->last_error = hRet;
+            return false;
+        }
+        IUnknown *lpUnknown;
+        hRet = GetActiveObject(clsid, nullptr, &lpUnknown);
+        this->last_error = hRet;
+        if (FAILED(hRet))
+        {
+            return false;
+        }
+        this->data = lpUnknown;
+        return true;
+    }
 }

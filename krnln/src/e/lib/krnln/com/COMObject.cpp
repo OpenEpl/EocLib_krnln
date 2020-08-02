@@ -8,7 +8,10 @@ namespace e::lib::krnln
         HRESULT hRet = CLSIDFromProgID(descriptionW.get(), result);
         if (FAILED(hRet))
         {
-            hRet = CLSIDFromString(descriptionW.get(), result);
+            if (descriptionW.get()[0] == L'{')
+            {
+                hRet = CLSIDFromString(descriptionW.get(), result);
+            }
         }
         return hRet;
     }
